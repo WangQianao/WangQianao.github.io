@@ -6,15 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://WangQianao.github.io">
-  <title>Archives | Hexo</title>
+  <title>LIME模型---&#34;Why Should I Trust You?&#34;Explaining the Predictions of Any Classifier 速读 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="https://wangqianao.github.io/archives/index.html">
+  <meta name="description" content="文章核心思想速读：   提出了一个LIME解释技术能够对任何分类器做出的预测进行解释。   L指LOCAL，意思是模型是针对局部某个样本的解释，而不是所有样本   I指：INTERPRETABLE，可解释性，能够让人类看懂   M指：MODEL-AGNOSTIC ，与特定模型无关，也就是将要解释的模型都看作一个黑盒，无需了解原模型的运作原理   E指：EXPLANATIONS，解释   主要">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LIME模型---&quot;Why Should I Trust You?&quot;Explaining the Predictions of Any Classifier 速读">
+<meta property="og:url" content="https://wangqianao.github.io/2022/12/20/LIME%E6%A8%A1%E5%9E%8B---Why%20Should%20I%20Trust%20You%20Explaining%20the%20Predictions%20of%20Any%20Classifier%20%E9%80%9F%E8%AF%BB-limemodel/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="文章核心思想速读：   提出了一个LIME解释技术能够对任何分类器做出的预测进行解释。   L指LOCAL，意思是模型是针对局部某个样本的解释，而不是所有样本   I指：INTERPRETABLE，可解释性，能够让人类看懂   M指：MODEL-AGNOSTIC ，与特定模型无关，也就是将要解释的模型都看作一个黑盒，无需了解原模型的运作原理   E指：EXPLANATIONS，解释   主要">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pica.zhimg.com/v2-10f4c8df24e54f2b2accdf31624343ea_720w.jpg?source=d16d100b">
+<meta property="og:image" content="https://pic1.zhimg.com/v2-527e12d220b9a653f08fa0e4eaa3fba1_720w.jpg?source=d16d100b">
+<meta property="article:published_time" content="2022-12-20T04:45:20.337Z">
+<meta property="article:modified_time" content="2022-12-20T04:59:39.837Z">
 <meta property="article:author" content="WangQianao">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pica.zhimg.com/v2-10f4c8df24e54f2b2accdf31624343ea_720w.jpg?source=d16d100b">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -150,140 +157,152 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-LIME模型---Why Should I Trust You Explaining the Predictions of Any Classifier 速读-limemodel" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2022" class="archive-year">2022</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/12/20/%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BBLIME--%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%8F%AF%E8%A7%A3%E9%87%8A%E6%80%A7-limecodereading/" class="archive-article-date">
-  	<time datetime="2022-12-20T04:45:24.176Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-12-20</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/12/20/%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BBLIME--%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%8F%AF%E8%A7%A3%E9%87%8A%E6%80%A7-limecodereading/">源码阅读LIME--机器学习可解释性</a>
+    <h1 class="article-title" itemprop="name">
+      LIME模型---&#34;Why Should I Trust You?&#34;Explaining the Predictions of Any Classifier 速读
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/可解释性//" class="article-tag-list-link color5">可解释性</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/12/20/idea%20mysql%E5%8F%AF%E8%A7%86%E5%8C%96%E5%B7%A5%E5%85%B7%EF%BC%8C%E5%87%BA%E7%8E%B0You%20have%20an%20error%20in%20your%20SQL%20syntax;%20check%20the%20manual%20%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86-ideamysqlerrordeal/" class="archive-article-date">
-  	<time datetime="2022-12-20T04:45:24.155Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-12-20</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/12/20/idea%20mysql%E5%8F%AF%E8%A7%86%E5%8C%96%E5%B7%A5%E5%85%B7%EF%BC%8C%E5%87%BA%E7%8E%B0You%20have%20an%20error%20in%20your%20SQL%20syntax;%20check%20the%20manual%20%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86-ideamysqlerrordeal/">idea mysql可视化工具，出现You have an error in your SQL syntax; check the manual .....错误处理</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/后端//" class="article-tag-list-link color3">后端</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/12/20/NLP%E5%8F%AF%E8%A7%A3%E9%87%8A%E6%80%A7%E5%85%A5%E9%97%A8md-nlp%E5%8F%AF%E8%A7%A3%E9%87%8A%E6%80%A7%E5%85%A5%E9%97%A8md/" class="archive-article-date">
-  	<time datetime="2022-12-20T04:45:21.645Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-12-20</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/12/20/NLP%E5%8F%AF%E8%A7%A3%E9%87%8A%E6%80%A7%E5%85%A5%E9%97%A8md-nlp%E5%8F%AF%E8%A7%A3%E9%87%8A%E6%80%A7%E5%85%A5%E9%97%A8md/">NLP可解释性入门.md</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/12/20/LIME%E6%A8%A1%E5%9E%8B---Why%20Should%20I%20Trust%20You%20Explaining%20the%20Predictions%20of%20Any%20Classifier%20%E9%80%9F%E8%AF%BB-limemodel/" class="archive-article-date">
+        
+        <a href="/2022/12/20/LIME%E6%A8%A1%E5%9E%8B---Why%20Should%20I%20Trust%20You%20Explaining%20the%20Predictions%20of%20Any%20Classifier%20%E9%80%9F%E8%AF%BB-limemodel/" class="archive-article-date">
   	<time datetime="2022-12-20T04:45:20.337Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-12-20</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/12/20/LIME%E6%A8%A1%E5%9E%8B---Why%20Should%20I%20Trust%20You%20Explaining%20the%20Predictions%20of%20Any%20Classifier%20%E9%80%9F%E8%AF%BB-limemodel/">LIME模型---&#34;Why Should I Trust You?&#34;Explaining the Predictions of Any Classifier 速读</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <meta name = "referrer" content = "no-referrer" />
 
-        <div class="article-info info-on-right">
-          
-          
+<div class="Editable-unstyled" data-block="true" data-editor="6nrde" data-offset-key="662lk-0-0">
+<div class="public-DraftStyleDefault-block public-DraftStyleDefault-ltr" data-offset-key="662lk-0-0"><span data-offset-key="662lk-0-0">文章核心思想速读：</span></div>
+</div>
+<div class="Editable-unstyled" data-block="true" data-editor="6nrde" data-offset-key="3nf47-0-0">
+<div class="public-DraftStyleDefault-block public-DraftStyleDefault-ltr" data-offset-key="3nf47-0-0"><span data-offset-key="3nf47-0-0">提出了一个LIME解释技术能够对任何分类器做出的预测进行解释。</span></div>
+</div>
+<div class="Editable-unstyled" data-block="true" data-editor="6nrde" data-offset-key="fh4jf-0-0">
+<div class="public-DraftStyleDefault-block public-DraftStyleDefault-ltr" data-offset-key="fh4jf-0-0"><span data-offset-key="fh4jf-0-0">L指LOCAL，意思是模型是针对局部某个样本的解释，而不是所有样本</span></div>
+</div>
+<div class="Editable-unstyled" data-block="true" data-editor="6nrde" data-offset-key="6cb2v-0-0">
+<div class="public-DraftStyleDefault-block public-DraftStyleDefault-ltr" data-offset-key="6cb2v-0-0"><span data-offset-key="6cb2v-0-0">I指：INTERPRETABLE，可解释性，能够让人类看懂</span></div>
+</div>
+<div class="Editable-unstyled" data-block="true" data-editor="6nrde" data-offset-key="2sqe1-0-0">
+<div class="public-DraftStyleDefault-block public-DraftStyleDefault-ltr" data-offset-key="2sqe1-0-0"><span data-offset-key="2sqe1-0-0">M指：MODEL-AGNOSTIC ，与特定模型无关，也就是将要解释的模型都看作一个黑盒，无需了解原模型的运作原理</span></div>
+</div>
+<div class="Editable-unstyled" data-block="true" data-editor="6nrde" data-offset-key="5nq9a-0-0">
+<div class="public-DraftStyleDefault-block public-DraftStyleDefault-ltr" data-offset-key="5nq9a-0-0"><span data-offset-key="5nq9a-0-0">E指：EXPLANATIONS，解释</span></div>
+</div>
+<div class="Editable-unstyled" data-block="true" data-editor="6nrde" data-offset-key="1jacf-0-0">
+<div class="public-DraftStyleDefault-block public-DraftStyleDefault-ltr" data-offset-key="1jacf-0-0"><span data-offset-key="1jacf-0-0">主要思想可以看下面这张图：</span></div>
+</div>
+<div class="Image-captionContainer" data-size="normal">
+<div class="Image-resizerContainer css-ym3v7r" data-size="normal">
+<div>
+<div>
+<div class="ImageDelete-Container css-xi606m">
+<div class="ImageDelete-Wrapper css-1gomreu"><img src="https://picx.zhimg.com/80/v2-19a10655bde0f574d459e6075561194c_720w.png?source=d16d100b" class="Image FocusPlugin--unfocused Image--isBlock" data-size="normal" data-rawwidth="661" data-rawheight="400" data-watermark="watermark" data-original-src="https://picx.zhimg.com/v2-19a10655bde0f574d459e6075561194c_720w.jpg?source=d16d100b" data-watermark-src="https://pica.zhimg.com/v2-10f4c8df24e54f2b2accdf31624343ea_720w.jpg?source=d16d100b" />
+<div class="css-s0x03z">​</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="Editable-unstyled" data-block="true" data-editor="6nrde" data-offset-key="b89me-0-0">
+<div class="public-DraftStyleDefault-block public-DraftStyleDefault-ltr" data-offset-key="b89me-0-0"><span data-offset-key="b89me-0-0">&nbsp;</span></div>
+</div>
+<div class="Editable-unstyled" data-block="true" data-editor="6nrde" data-offset-key="nbje-0-0">
+<div class="public-DraftStyleDefault-block public-DraftStyleDefault-ltr" data-offset-key="nbje-0-0"><span data-offset-key="nbje-0-0">颜色最亮的那个红色十字是我们想要做出解释的样本，</span></div>
+</div>
+<div class="Editable-unstyled" data-block="true" data-editor="6nrde" data-offset-key="5knnt-0-0">
+<div class="public-DraftStyleDefault-block public-DraftStyleDefault-ltr" data-offset-key="5knnt-0-0"><span data-offset-key="5knnt-0-0">其他颜色稍暗一些的红色十字和深蓝色圆点是我们根据这个最亮的红色十字，在它的周围生成的一些样本。比如说对于句子&ldquo;我想有一个女朋友&rdquo;，生成一些句子，</span></div>
+</div>
+<div class="Editable-unstyled" data-block="true" data-editor="6nrde" data-offset-key="6b4dk-0-0">
+<div class="public-DraftStyleDefault-block public-DraftStyleDefault-ltr" data-offset-key="6b4dk-0-0"><span data-offset-key="6b4dk-0-0">&ldquo;我想女朋友&rdquo;，&ldquo;我有女朋友&rdquo;，&ldquo;我想有女朋友&rdquo;，&ldquo;我想有一个朋友&rdquo;。</span></div>
+</div>
+<div class="Editable-unstyled" data-block="true" data-editor="6nrde" data-offset-key="ik1q-0-0">
+<div class="public-DraftStyleDefault-block public-DraftStyleDefault-ltr" data-offset-key="ik1q-0-0"><span data-offset-key="ik1q-0-0">而背景中的浅蓝色和灰色是原始模型的分类边界，是 很难被我们人类所解读的，我们要做的就是用一个简单的模型，比如线性模型，决策树模型等等这些人类能够做出解读的模型去拟合原始的模型。当拟合完成后，新模型对于相同的输入应该产生和原始模型相同的输出。</span></div>
+</div>
+<div class="Editable-unstyled" data-block="true" data-editor="6nrde" data-offset-key="f22u5-0-0">
+<div class="public-DraftStyleDefault-block public-DraftStyleDefault-ltr" data-offset-key="f22u5-0-0"><span data-offset-key="f22u5-0-0">然后我们只需要对新的简易模型做出解读就好了。</span></div>
+</div>
+<div class="Editable-unstyled" data-block="true" data-editor="6nrde" data-offset-key="5mptr-0-0">
+<div class="public-DraftStyleDefault-block public-DraftStyleDefault-ltr" data-offset-key="5mptr-0-0"><span data-offset-key="5mptr-0-0">模型中对于句子的表示使用的是词袋模型，这个模型简单易懂，能够被人类所解读。</span></div>
+</div>
+<div class="Editable-unstyled" data-block="true" data-editor="6nrde" data-offset-key="bkmge-0-0">
+<div class="public-DraftStyleDefault-block public-DraftStyleDefault-ltr" data-offset-key="bkmge-0-0"><span data-offset-key="bkmge-0-0">比如</span></div>
+</div>
+<div class="Image-captionContainer" data-size="normal">
+<div class="Image-resizerContainer css-ym3v7r" data-size="normal">
+<div class="ImageDelete-Container css-xi606m">
+<div class="ImageDelete-Wrapper css-1gomreu"><img src="https://picx.zhimg.com/80/v2-65b9cfeb8ca67a7893a7eaf1e903cd43_720w.png?source=d16d100b" class="Image FocusPlugin--unfocused Image--isBlock" data-size="normal" data-rawwidth="1092" data-rawheight="326" data-watermark="watermark" data-original-src="https://pic1.zhimg.com/v2-65b9cfeb8ca67a7893a7eaf1e903cd43_720w.jpg?source=d16d100b" data-watermark-src="https://pic1.zhimg.com/v2-527e12d220b9a653f08fa0e4eaa3fba1_720w.jpg?source=d16d100b" /></div>
+</div>
+</div>
+</div>
+<div class="Editable-unstyled" data-block="true" data-editor="6nrde" data-offset-key="edv9t-0-0">
+<div class="public-DraftStyleDefault-block public-DraftStyleDefault-ltr" data-offset-key="edv9t-0-0"><span data-offset-key="edv9t-0-0">&nbsp;</span></div>
+</div>
+<div class="Editable-unstyled" data-block="true" data-editor="6nrde" data-offset-key="7jq90-0-0">
+<div class="public-DraftStyleDefault-block public-DraftStyleDefault-ltr" data-offset-key="7jq90-0-0"><span data-offset-key="7jq90-0-0">这样就构成了一个简单的训练样本，其中第一行是原始样本，其他是生成的样本。</span></div>
+</div>
+<div class="Editable-unstyled" data-block="true" data-editor="6nrde" data-offset-key="c7s9i-0-0">
+<div class="public-DraftStyleDefault-block public-DraftStyleDefault-ltr" data-offset-key="c7s9i-0-0"><span data-offset-key="c7s9i-0-0">如果样本的特征特别多，比如说训练数据的第二维有10000个，那么太多了对于我们人来来说也是不好去理解的，所以需要从中选出k个特征。选择的方法代码里提供了几种，最简单的就是不选，稍微复杂的就是用岭回归，选出对模型重要性影响最大的k个特征</span></div>
+</div>
+<div class="Editable-unstyled" data-block="true" data-editor="6nrde" data-offset-key="7ult5-0-0">
+<div class="public-DraftStyleDefault-block public-DraftStyleDefault-ltr" data-offset-key="7ult5-0-0"><span data-offset-key="7ult5-0-0">选出来之后，再用岭回归去训练我们那个解释模型</span></div>
+</div>
+<div class="Editable-unstyled" data-block="true" data-editor="6nrde" data-offset-key="f1lj8-0-0">
+<div class="public-DraftStyleDefault-block public-DraftStyleDefault-ltr" data-offset-key="f1lj8-0-0"><span data-offset-key="f1lj8-0-0">这里用到了两次岭回归</span></div>
+</div>
+<div class="Editable-unstyled" data-block="true" data-editor="6nrde" data-offset-key="53mdn-0-0">
+<div class="public-DraftStyleDefault-block public-DraftStyleDefault-ltr" data-offset-key="53mdn-0-0"><span data-offset-key="53mdn-0-0">涉及到模型的具体问题就需要去查看源码了。</span></div>
+</div>
+<div class="Editable-unstyled" data-block="true" data-editor="6nrde" data-offset-key="afe48-0-0">
+<div class="public-DraftStyleDefault-block public-DraftStyleDefault-ltr" data-offset-key="afe48-0-0"><span data-offset-key="afe48-0-0">源码中对模型的训练就是使用的</span></div>
+</div>
+<div class="Editable-unstyled" data-block="true" data-editor="6nrde" data-offset-key="49pk5-0-0">
+<div class="public-DraftStyleDefault-block public-DraftStyleDefault-ltr" data-offset-key="49pk5-0-0"><span data-offset-key="49pk5-0-0">Sklearn中的岭回归</span></div>
+</div>
+<div class="Editable-unstyled" data-block="true" data-editor="6nrde" data-offset-key="2iv6v-0-0">
+<div class="public-DraftStyleDefault-block public-DraftStyleDefault-ltr" data-offset-key="2iv6v-0-0"><span data-offset-key="2iv6v-0-0">源码：<a class="Link ztext-link" href="https://github.com/marcotcr/lime" target="_blank" data-offset-key="2iv6v-1-0" data-editable="true"><span data-offset-key="2iv6v-1-0">https://github.com/marcotcr/lime</span></a></span></div>
+</div>
+<div class="Editable-unstyled" data-block="true" data-editor="6nrde" data-offset-key="orco-0-0">
+<div class="public-DraftStyleDefault-block public-DraftStyleDefault-ltr" data-offset-key="orco-0-0"><span data-offset-key="orco-0-0">这个仓库中还有示例代码：可以看一遍了解lime</span></div>
+</div>
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
@@ -296,248 +315,112 @@
 	</div>
 
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=https://wangqianao.github.io/2022/12/20/LIME%E6%A8%A1%E5%9E%8B---Why%20Should%20I%20Trust%20You%20Explaining%20the%20Predictions%20of%20Any%20Classifier%20%E9%80%9F%E8%AF%BB-limemodel/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/12/20/Axiomatic%20Attribution%20for%20Deep%20Networks%E8%A7%A3%E8%AF%BB%EF%BC%88Integrated%20Gradients%E6%96%B9%E6%B3%95%EF%BC%89-integratedgradientspaper/" class="archive-article-date">
-  	<time datetime="2022-12-20T04:45:20.332Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-12-20</time>
-</a>
+<nav id="article-nav">
+  
+    <a href="/2022/12/20/NLP%E5%8F%AF%E8%A7%A3%E9%87%8A%E6%80%A7%E5%85%A5%E9%97%A8md-nlp%E5%8F%AF%E8%A7%A3%E9%87%8A%E6%80%A7%E5%85%A5%E9%97%A8md/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          NLP可解释性入门.md
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2022/12/20/Axiomatic%20Attribution%20for%20Deep%20Networks%E8%A7%A3%E8%AF%BB%EF%BC%88Integrated%20Gradients%E6%96%B9%E6%B3%95%EF%BC%89-integratedgradientspaper/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Axiomatic Attribution for Deep Networks解读（Integrated Gradients方法）</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/12/20/Axiomatic%20Attribution%20for%20Deep%20Networks%E8%A7%A3%E8%AF%BB%EF%BC%88Integrated%20Gradients%E6%96%B9%E6%B3%95%EF%BC%89-integratedgradientspaper/">Axiomatic Attribution for Deep Networks解读（Integrated Gradients方法）</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/可解释性//" class="article-tag-list-link color5">可解释性</a>
-        		</li>
-      		
-		</ul>
-	</div>
+        
+        
+    </div>
+</aside>
 
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/12/20/%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BBIntegratedGradients---%E5%9F%BA%E4%BA%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%8F%AF%E8%A7%A3%E9%87%8A%E6%80%A7%E6%A1%86%E6%9E%B6Captum-integratedgradientscodereading/" class="archive-article-date">
-  	<time datetime="2022-12-20T04:45:20.328Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-12-20</time>
-</a>
-        </div>
-    	 
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/12/20/%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BBIntegratedGradients---%E5%9F%BA%E4%BA%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%8F%AF%E8%A7%A3%E9%87%8A%E6%80%A7%E6%A1%86%E6%9E%B6Captum-integratedgradientscodereading/">源码阅读IntegratedGradients---基于深度学习可解释性框架Captum</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/可解释性//" class="article-tag-list-link color5">可解释性</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/12/02/%E8%8A%82%E6%B5%81%E2%80%94%E2%80%94%E4%BB%A5%E8%B4%AA%E5%90%83%E8%9B%87%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1%E4%B8%BA%E4%BE%8B-%E8%B4%AA%E5%90%83%E8%9B%87%E5%BD%93%E4%B8%AD%E7%9A%84%E8%8A%82%E6%B5%81%E6%80%9D%E6%83%B3/" class="archive-article-date">
-  	<time datetime="2022-12-02T08:24:54.466Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-12-02</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/12/02/%E8%8A%82%E6%B5%81%E2%80%94%E2%80%94%E4%BB%A5%E8%B4%AA%E5%90%83%E8%9B%87%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1%E4%B8%BA%E4%BE%8B-%E8%B4%AA%E5%90%83%E8%9B%87%E5%BD%93%E4%B8%AD%E7%9A%84%E8%8A%82%E6%B5%81%E6%80%9D%E6%83%B3/">节流——以贪吃蛇游戏设计为例</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/前端//" class="article-tag-list-link color3">前端</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/12/01/javascript%E6%89%8B%E6%8A%8A%E6%89%8B%E5%AE%9E%E7%8E%B0%E7%AE%80%E6%98%93%E8%B4%AA%E5%90%83%E8%9B%87%EF%BC%88%E4%BA%94%EF%BC%89%E6%B6%A6%E8%89%B2%E3%80%81%E5%88%A4%E8%BE%93%E3%80%81%E6%8E%A7%E9%95%BF%20%E2%80%94%E2%80%94%E5%A4%A9%E4%B8%8B%E5%A4%A7%E4%BA%8B%EF%BC%8C%E5%BF%85%E4%BD%9C%E4%BA%8E%E7%BB%86-snake05/" class="archive-article-date">
-  	<time datetime="2022-12-01T06:26:02.226Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-12-01</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/12/01/javascript%E6%89%8B%E6%8A%8A%E6%89%8B%E5%AE%9E%E7%8E%B0%E7%AE%80%E6%98%93%E8%B4%AA%E5%90%83%E8%9B%87%EF%BC%88%E4%BA%94%EF%BC%89%E6%B6%A6%E8%89%B2%E3%80%81%E5%88%A4%E8%BE%93%E3%80%81%E6%8E%A7%E9%95%BF%20%E2%80%94%E2%80%94%E5%A4%A9%E4%B8%8B%E5%A4%A7%E4%BA%8B%EF%BC%8C%E5%BF%85%E4%BD%9C%E4%BA%8E%E7%BB%86-snake05/">javascript手把手实现简易贪吃蛇（五）润色、判输、控长 ——天下大事，必作于细</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/前端//" class="article-tag-list-link color3">前端</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/12/01/javascript%E6%89%8B%E6%8A%8A%E6%89%8B%E5%AE%9E%E7%8E%B0%E7%AE%80%E6%98%93%E8%B4%AA%E5%90%83%E8%9B%87%EF%BC%88%E5%9B%9B%EF%BC%89%E8%9B%87%E7%9A%84%E7%A7%BB%E5%8A%A8%20%E2%80%94%E2%80%94%20%E6%AD%A4%E8%9B%87%E8%8B%A5%E9%81%82%E5%8D%83%E9%87%8C%E5%BF%97%EF%BC%8C%E8%BF%BD%E9%A3%8E%E7%8A%B9%E5%8F%AF%E5%88%B0%E5%A4%A9%E6%B6%AF-snake04/" class="archive-article-date">
-  	<time datetime="2022-12-01T02:45:30.303Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-12-01</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/12/01/javascript%E6%89%8B%E6%8A%8A%E6%89%8B%E5%AE%9E%E7%8E%B0%E7%AE%80%E6%98%93%E8%B4%AA%E5%90%83%E8%9B%87%EF%BC%88%E5%9B%9B%EF%BC%89%E8%9B%87%E7%9A%84%E7%A7%BB%E5%8A%A8%20%E2%80%94%E2%80%94%20%E6%AD%A4%E8%9B%87%E8%8B%A5%E9%81%82%E5%8D%83%E9%87%8C%E5%BF%97%EF%BC%8C%E8%BF%BD%E9%A3%8E%E7%8A%B9%E5%8F%AF%E5%88%B0%E5%A4%A9%E6%B6%AF-snake04/">javascript手把手实现简易贪吃蛇（四）蛇的移动 —— 此蛇若遂千里志，追风犹可到天涯</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/前端//" class="article-tag-list-link color3">前端</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/11/30/javascript%E6%89%8B%E6%8A%8A%E6%89%8B%E5%AE%9E%E7%8E%B0%E7%AE%80%E6%98%93%E8%B4%AA%E5%90%83%E8%9B%87%EF%BC%88%E4%B8%89%EF%BC%89%E8%9B%87%E7%9A%84%E7%BB%98%E5%88%B6%E2%80%94%E2%80%94%E5%A4%95%E9%81%BF%E9%95%BF%E8%9B%87-snake03/" class="archive-article-date">
-  	<time datetime="2022-11-30T11:18:49.526Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-11-30</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/11/30/javascript%E6%89%8B%E6%8A%8A%E6%89%8B%E5%AE%9E%E7%8E%B0%E7%AE%80%E6%98%93%E8%B4%AA%E5%90%83%E8%9B%87%EF%BC%88%E4%B8%89%EF%BC%89%E8%9B%87%E7%9A%84%E7%BB%98%E5%88%B6%E2%80%94%E2%80%94%E5%A4%95%E9%81%BF%E9%95%BF%E8%9B%87-snake03/">javascript手把手实现简易贪吃蛇（三）蛇的绘制——夕避长蛇</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/前端//" class="article-tag-list-link color3">前端</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/archives/page/2/">2</a><a class="extend next" rel="next" href="/archives/page/2/">Next &amp;raquo;</a>
-    </nav>
   
 
 
@@ -561,8 +444,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,

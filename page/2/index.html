@@ -6,11 +6,11 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://WangQianao.github.io">
-  <title>Archives | Hexo</title>
+  <title>Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta property="og:type" content="website">
 <meta property="og:title" content="Hexo">
-<meta property="og:url" content="https://wangqianao.github.io/archives/index.html">
+<meta property="og:url" content="https://wangqianao.github.io/page/2/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:author" content="WangQianao">
@@ -152,252 +152,77 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-javascript手把手实现简易贪吃蛇（二）地图绘制——江山如画，一时多少豪杰-snake02" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/11/30/javascript%E6%89%8B%E6%8A%8A%E6%89%8B%E5%AE%9E%E7%8E%B0%E7%AE%80%E6%98%93%E8%B4%AA%E5%90%83%E8%9B%87%EF%BC%88%E4%BA%8C%EF%BC%89%E5%9C%B0%E5%9B%BE%E7%BB%98%E5%88%B6%E2%80%94%E2%80%94%E6%B1%9F%E5%B1%B1%E5%A6%82%E7%94%BB%EF%BC%8C%E4%B8%80%E6%97%B6%E5%A4%9A%E5%B0%91%E8%B1%AA%E6%9D%B0-snake02/">javascript手把手实现简易贪吃蛇（二）地图绘制——江山如画，一时多少豪杰</a>
+    </h1>
+  
+
+        
+        <a href="/2022/11/30/javascript%E6%89%8B%E6%8A%8A%E6%89%8B%E5%AE%9E%E7%8E%B0%E7%AE%80%E6%98%93%E8%B4%AA%E5%90%83%E8%9B%87%EF%BC%88%E4%BA%8C%EF%BC%89%E5%9C%B0%E5%9B%BE%E7%BB%98%E5%88%B6%E2%80%94%E2%80%94%E6%B1%9F%E5%B1%B1%E5%A6%82%E7%94%BB%EF%BC%8C%E4%B8%80%E6%97%B6%E5%A4%9A%E5%B0%91%E8%B1%AA%E6%9D%B0-snake02/" class="archive-article-date">
+  	<time datetime="2022-11-30T08:32:22.582Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-11-30</time>
+</a>
+        
+      </header>
     
-    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="地图"><a href="#地图" class="headerlink" title="地图"></a>地图</h1><h2 id="初始地图"><a href="#初始地图" class="headerlink" title="初始地图"></a>初始地图</h2><p>在js文件夹下创建新文件GameMap.js<br>将下面的代码复制到该文件中</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">GameObject</span> &#125; <span class="keyword">from</span> <span class="string">&quot;/js/GameObject.js&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">GameMap</span> <span class="keyword">extends</span> <span class="title class_ inherited__">GameObject</span>&#123;</span><br><span class="line">    <span class="title function_">constructor</span>(<span class="params">parent</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="variable language_">super</span>();</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">parent</span>=$(<span class="string">&#x27;.&#x27;</span>+parent)[<span class="number">0</span>];</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">$canvas</span>=$(<span class="string">&#x27;canvas&#x27;</span>)[<span class="number">0</span>];</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">ctx</span>=<span class="variable language_">this</span>.<span class="property">$canvas</span>.<span class="title function_">getContext</span>(<span class="string">&#x27;2d&#x27;</span>);</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">rows</span>=<span class="number">13</span>;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">cols</span>=<span class="number">14</span>;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">L</span>=<span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="title function_">start</span>(<span class="params"></span>)&#123;</span><br><span class="line">            </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="title function_">update_size</span>(<span class="params"></span>)</span><br><span class="line">    &#123;</span><br><span class="line">        </span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">L</span>=<span class="built_in">parseInt</span>(<span class="title class_">Math</span>.<span class="title function_">min</span>(<span class="variable language_">this</span>.<span class="property">parent</span>.<span class="property">clientWidth</span>/<span class="variable language_">this</span>.<span class="property">cols</span>,<span class="variable language_">this</span>.<span class="property">parent</span>.<span class="property">clientHeight</span>/<span class="variable language_">this</span>.<span class="property">rows</span>));</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">ctx</span>.<span class="property">canvas</span>.<span class="property">width</span>=<span class="variable language_">this</span>.<span class="property">L</span>*<span class="variable language_">this</span>.<span class="property">cols</span>;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">ctx</span>.<span class="property">canvas</span>.<span class="property">height</span>=<span class="variable language_">this</span>.<span class="property">L</span>*<span class="variable language_">this</span>.<span class="property">rows</span>;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="title function_">update</span>(<span class="params"></span>)&#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="title function_">update_size</span>();</span><br><span class="line">        <span class="variable language_">this</span>.<span class="title function_">render</span>();</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="title function_">render</span>(<span class="params"></span>)&#123;</span><br><span class="line">        <span class="keyword">const</span> color_even=<span class="string">&quot;#AAD751&quot;</span>,color_odd=<span class="string">&quot;#A2D149&quot;</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">let</span> r=<span class="number">0</span>;r&lt;<span class="variable language_">this</span>.<span class="property">rows</span>;r++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">let</span> c=<span class="number">0</span>;c&lt;<span class="variable language_">this</span>.<span class="property">cols</span>;c++)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span>((r+c)%<span class="number">2</span> ===<span class="number">0</span>)</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="variable language_">this</span>.<span class="property">ctx</span>.<span class="property">fillStyle</span>=color_even;</span><br><span class="line">                &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                    <span class="variable language_">this</span>.<span class="property">ctx</span>.<span class="property">fillStyle</span>=color_odd;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="variable language_">this</span>.<span class="property">ctx</span>.<span class="title function_">fillRect</span>(c*<span class="variable language_">this</span>.<span class="property">L</span>,r*<span class="variable language_">this</span>.<span class="property">L</span>,<span class="variable language_">this</span>.<span class="property">L</span>,<span class="variable language_">this</span>.<span class="property">L</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>GameMap.js文件中声明了一个GameMap类，继承自GameObject类</p>
+<p>在GameMap类里，我们在constructor中做了下面这几件事：
+
+<ol>
+<li>执行父类构造函数，这会将GameMap加入到GAME_OBJECTS数组里</li>
+<li>通过jquery拿到了在index.html文件中声明的class为’gamemap’的div和canvas标签</li>
+<li>声明了地图的行数和列数，13行14列</li>
+<li>声明地图中每一个小方块的大小L，但赋值为0</p></li>
+</ol>
+<p>update函数中，我们调用了两个函数</p>
+
+<p>update_size函数会动态计算地图中每一个方块的大小，画布的宽度和高度(注意canvas的宽和高跟一般的坐标系是颠倒的)。这样做的好处是当我们改变浏览器窗口的大小，我们的地图也会动态地改变大小。</p>
+<p>render函数负责地图的最终绘制,在这个函数中，我们用到了 <b>fillRect</b> 这个函数，它是 Canvas 2D API 绘制填充矩形的方法。</p>
+<p><b>void ctx.fillRect(x, y, width, height);</b>
+这个函数的四个参数分别是：x, y表示这个矩形的开始点（左上点）的坐标 ，width 和 height表示宽度和高度</p>
+
+
+
+<p>在index.html文件中，在canvas标签后添加下列代码</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;script type=<span class="string">&quot;module&quot;</span>&gt;</span><br><span class="line">    <span class="keyword">import</span> &#123;<span class="title class_">GameMap</span>&#125; <span class="keyword">from</span> <span class="string">&#x27;/js/GameMap.js&#x27;</span>;</span><br><span class="line">    <span class="keyword">const</span> gamemap=<span class="keyword">new</span> <span class="title class_">GameMap</span>(<span class="string">&#x27;gamemap&#x27;</span>);</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>此时，body标签应该是这样</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;playground&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;gamemap&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">canvas</span>  <span class="attr">tabindex</span>=<span class="string">&quot;0&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">canvas</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;module&quot;</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">                <span class="keyword">import</span> &#123;<span class="title class_">GameMap</span>&#125; <span class="keyword">from</span> <span class="string">&#x27;/js/GameMap.js&#x27;</span>;</span></span><br><span class="line"><span class="language-javascript">                <span class="keyword">const</span> gamemap=<span class="keyword">new</span> <span class="title class_">GameMap</span>(<span class="string">&#x27;gamemap&#x27;</span>);</span></span><br><span class="line"><span class="language-javascript">            </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>这时候，用live Server打开index.html文件应该是下面这样<br><img src="https://s2.loli.net/2022/11/30/FTxMArpYwWgGvE3.png" alt="03.png"></p>
+<h2 id="地图加上障碍物"><a href="#地图加上障碍物" class="headerlink" title="地图加上障碍物"></a>地图加上障碍物</h2><p>在js文件夹下创建Wall.js文件<br>复制下面的代码到文件中</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">GameObject</span> &#125; <span class="keyword">from</span> <span class="string">&quot;/js/GameObject.js&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span>  <span class="keyword">class</span> <span class="title class_">Wall</span> <span class="keyword">extends</span> <span class="title class_ inherited__">GameObject</span>&#123;</span><br><span class="line">    <span class="title function_">constructor</span>(<span class="params">r,c,gamemap</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="variable language_">super</span>();</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">r</span>=r;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">c</span>=c;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">gamemap</span>=gamemap;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">color</span>=<span class="string">&quot;#B37226&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="title function_">update</span>(<span class="params"></span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="title function_">render</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="title function_">render</span>(<span class="params"></span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">const</span> L=<span class="variable language_">this</span>.<span class="property">gamemap</span>.<span class="property">L</span>;</span><br><span class="line">        <span class="keyword">const</span> ctx=<span class="variable language_">this</span>.<span class="property">gamemap</span>.<span class="property">ctx</span>;</span><br><span class="line">        ctx.<span class="property">fillStyle</span>=<span class="variable language_">this</span>.<span class="property">color</span>;</span><br><span class="line">        ctx.<span class="title function_">fillRect</span>(<span class="variable language_">this</span>.<span class="property">c</span>*L,<span class="variable language_">this</span>.<span class="property">r</span>*L,L,L);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>这个文件声明了一个名为Wall的类，代表地图中的每一个小障碍物，它同样继承自GameObject。<br>在它的构造函数中，我们声明了这一个障碍物所在的行和列，以及它的颜色，同时传入了一个GameMap类，以便拿到每一个方块的大小和canvas这两个参数。<br>在render函数中，我们将这个障碍物通过canvas画出来。</p>
+<p>在GameMap.js的constructor函数中，添加下面两行代码,用来指定地图中的障碍物数量和维护所有的障碍物</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">this</span>.<span class="property">inner_walls_count</span>=<span class="number">20</span>;</span><br><span class="line"><span class="variable language_">this</span>.<span class="property">walls</span>=[];</span><br></pre></td></tr></table></figure>
+<p>接着，将下面这两个函数复制到GameMap类中</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//深度优先搜索检查连通性</span></span><br><span class="line"><span class="title function_">check_connectivity</span>(<span class="params">g,sx,sy,tx,ty</span>)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(sx==tx&amp;&amp;sy==ty)<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    g[sx][sy]=<span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">let</span> dx=[-<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>],dy=[<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>,-<span class="number">1</span>];</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> i=<span class="number">0</span>;i&lt;<span class="number">4</span>;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">let</span> xx=sx+dx[i],yy=sy+dy[i];</span><br><span class="line">        <span class="keyword">if</span>(g[xx][yy])<span class="keyword">continue</span>;</span><br><span class="line">        <span class="keyword">if</span>(xx&lt;<span class="number">1</span>||xx&gt;<span class="variable language_">this</span>.<span class="property">rows</span>-<span class="number">2</span>||yy&lt;<span class="number">1</span>||yy&gt;<span class="variable language_">this</span>.<span class="property">cols</span>-<span class="number">2</span>)<span class="keyword">continue</span>;</span><br><span class="line">        <span class="keyword">if</span>(<span class="variable language_">this</span>.<span class="title function_">check_connectivity</span>(g,xx,yy,tx,ty))<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="title function_">create_walls</span>(<span class="params"></span>)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//g为一个二维数组，标志着地图上某处是否有障碍物，true为有</span></span><br><span class="line">    <span class="keyword">const</span> g=[];</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> r=<span class="number">0</span>;r&lt;<span class="variable language_">this</span>.<span class="property">rows</span>;r++)</span><br><span class="line">    &#123;</span><br><span class="line">        g[r]=[];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">let</span> c=<span class="number">0</span>;c&lt;<span class="variable language_">this</span>.<span class="property">cols</span>;c++)</span><br><span class="line">        &#123;</span><br><span class="line">            g[r][c]=<span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//将地图上最外围一圈都放上障碍物，代表地图边界</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> r=<span class="number">0</span>;r&lt;<span class="variable language_">this</span>.<span class="property">rows</span>;r++)</span><br><span class="line">    &#123;</span><br><span class="line">        g[r][<span class="number">0</span>]=g[r][<span class="variable language_">this</span>.<span class="property">cols</span>-<span class="number">1</span>]=<span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> c=<span class="number">0</span>;c&lt;<span class="variable language_">this</span>.<span class="property">cols</span>;c++)</span><br><span class="line">    &#123;</span><br><span class="line">        g[<span class="number">0</span>][c]=g[<span class="variable language_">this</span>.<span class="property">rows</span>-<span class="number">1</span>][c]=<span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//创建内部的随机障碍物,必须是沿中心轴对称</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> i=<span class="number">0</span>;i&lt;<span class="variable language_">this</span>.<span class="property">inner_walls_count</span>/<span class="number">2</span>;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">//暴力生成障碍物，生成一千次随机数应该是能保证至少有一次成功生成的</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">let</span> j=<span class="number">0</span>;j&lt;<span class="number">1000</span>;j++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">let</span> r=<span class="built_in">parseInt</span>(<span class="title class_">Math</span>.<span class="title function_">random</span>()*<span class="variable language_">this</span>.<span class="property">rows</span>);</span><br><span class="line">            <span class="keyword">let</span> c=<span class="built_in">parseInt</span>(<span class="title class_">Math</span>.<span class="title function_">random</span>()*<span class="variable language_">this</span>.<span class="property">cols</span>);</span><br><span class="line">            <span class="keyword">if</span>(g[r][c] || g[<span class="variable language_">this</span>.<span class="property">rows</span>-<span class="number">1</span>-r][<span class="variable language_">this</span>.<span class="property">cols</span>-<span class="number">1</span>-c])<span class="keyword">continue</span>;</span><br><span class="line">            <span class="keyword">if</span>(r===<span class="variable language_">this</span>.<span class="property">rows</span>-<span class="number">2</span>&amp;&amp;c===<span class="number">1</span> || c===<span class="variable language_">this</span>.<span class="property">cols</span>-<span class="number">2</span>&amp;&amp;r===<span class="number">1</span>)<span class="keyword">continue</span>;</span><br><span class="line">            g[r][c]=g[<span class="variable language_">this</span>.<span class="property">rows</span>-<span class="number">1</span>-r][<span class="variable language_">this</span>.<span class="property">cols</span>-<span class="number">1</span>-c]=<span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//生成g数组的一个副本</span></span><br><span class="line">    <span class="keyword">const</span> copy_g= <span class="title class_">JSON</span>.<span class="title function_">parse</span>(<span class="title class_">JSON</span>.<span class="title function_">stringify</span>(g));</span><br><span class="line">    <span class="comment">//检查生成的地图</span></span><br><span class="line">    <span class="comment">//如果从左下角不能走到右上角，那么地图生成失败</span></span><br><span class="line">    <span class="keyword">if</span>(!<span class="variable language_">this</span>.<span class="title function_">check_connectivity</span>(copy_g,<span class="variable language_">this</span>.<span class="property">rows</span>-<span class="number">2</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="variable language_">this</span>.<span class="property">cols</span>-<span class="number">2</span>))<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//生成障碍物</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> r=<span class="number">0</span>;r&lt;<span class="variable language_">this</span>.<span class="property">rows</span>;r++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">let</span> c=<span class="number">0</span>;c&lt;<span class="variable language_">this</span>.<span class="property">cols</span>;c++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(g[r][c])</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="variable language_">this</span>.<span class="property">walls</span>.<span class="title function_">push</span>(<span class="keyword">new</span> <span class="title class_">Wall</span>(r,c,<span class="variable language_">this</span>));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>函数create_walls()用来生成障碍物，解释我都写在了代码的注释中<br>接着，在GameMap的start函数中添加下面的语句</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//暴力生成地图</span></span><br><span class="line"><span class="comment">//因为我们是利用随机数随机生成障碍物</span></span><br><span class="line"><span class="comment">//只生成一次可能无法生成成功的地图</span></span><br><span class="line"><span class="comment">//调用一千次应该是能保证最后至少能成功生成一次的</span></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> i=<span class="number">0</span>;i&lt;<span class="number">1000</span>;i++)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="variable language_">this</span>.<span class="title function_">create_walls</span>())<span class="keyword">break</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>当然，别忘了在GameMap的开头引入Wall这个类<br>如上一番操作之后，GameMap.js文件中应该是这样的</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">GameObject</span> &#125; <span class="keyword">from</span> <span class="string">&quot;/js/GameObject.js&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123;<span class="title class_">Wall</span>&#125; <span class="keyword">from</span> <span class="string">&quot;/js/Wall.js&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">GameMap</span> <span class="keyword">extends</span> <span class="title class_ inherited__">GameObject</span>&#123;</span><br><span class="line">    <span class="title function_">constructor</span>(<span class="params">parent</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="variable language_">super</span>();</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">parent</span>=$(<span class="string">&#x27;.&#x27;</span>+parent)[<span class="number">0</span>];</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">$canvas</span>=$(<span class="string">&#x27;canvas&#x27;</span>)[<span class="number">0</span>];</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">ctx</span>=<span class="variable language_">this</span>.<span class="property">$canvas</span>.<span class="title function_">getContext</span>(<span class="string">&#x27;2d&#x27;</span>);</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">rows</span>=<span class="number">13</span>;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">cols</span>=<span class="number">14</span>;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">L</span>=<span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">inner_walls_count</span>=<span class="number">20</span>;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">walls</span>=[];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="title function_">start</span>(<span class="params"></span>)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">let</span> i=<span class="number">0</span>;i&lt;<span class="number">1000</span>;i++)<span class="comment">//暴力生成地图</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(<span class="variable language_">this</span>.<span class="title function_">create_walls</span>())<span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="title function_">update_size</span>(<span class="params"></span>)</span><br><span class="line">    &#123;</span><br><span class="line">        </span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">L</span>=<span class="built_in">parseInt</span>(<span class="title class_">Math</span>.<span class="title function_">min</span>(<span class="variable language_">this</span>.<span class="property">parent</span>.<span class="property">clientWidth</span>/<span class="variable language_">this</span>.<span class="property">cols</span>,<span class="variable language_">this</span>.<span class="property">parent</span>.<span class="property">clientHeight</span>/<span class="variable language_">this</span>.<span class="property">rows</span>));</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">ctx</span>.<span class="property">canvas</span>.<span class="property">width</span>=<span class="variable language_">this</span>.<span class="property">L</span>*<span class="variable language_">this</span>.<span class="property">cols</span>;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">ctx</span>.<span class="property">canvas</span>.<span class="property">height</span>=<span class="variable language_">this</span>.<span class="property">L</span>*<span class="variable language_">this</span>.<span class="property">rows</span>;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="title function_">check_connectivity</span>(g,sx,sy,tx,ty)<span class="comment">//深度优先检查连通性</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(sx==tx&amp;&amp;sy==ty)<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        g[sx][sy]=<span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">let</span> dx=[-<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>],dy=[<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>,-<span class="number">1</span>];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">let</span> i=<span class="number">0</span>;i&lt;<span class="number">4</span>;i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">let</span> xx=sx+dx[i],yy=sy+dy[i];</span><br><span class="line">            <span class="keyword">if</span>(g[xx][yy])<span class="keyword">continue</span>;</span><br><span class="line">            <span class="keyword">if</span>(xx&lt;<span class="number">1</span>||xx&gt;<span class="variable language_">this</span>.<span class="property">rows</span>-<span class="number">2</span>||yy&lt;<span class="number">1</span>||yy&gt;<span class="variable language_">this</span>.<span class="property">cols</span>-<span class="number">2</span>)<span class="keyword">continue</span>;</span><br><span class="line">            <span class="keyword">if</span>(<span class="variable language_">this</span>.<span class="title function_">check_connectivity</span>(g,xx,yy,tx,ty))<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="title function_">create_walls</span>(<span class="params"></span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">const</span> g=[];<span class="comment">//g为一个二维数组，标志着地图上某处是否有障碍物，true为有</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">let</span> r=<span class="number">0</span>;r&lt;<span class="variable language_">this</span>.<span class="property">rows</span>;r++)</span><br><span class="line">        &#123;</span><br><span class="line">            g[r]=[];</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">let</span> c=<span class="number">0</span>;c&lt;<span class="variable language_">this</span>.<span class="property">cols</span>;c++)</span><br><span class="line">            &#123;</span><br><span class="line">                g[r][c]=<span class="literal">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">let</span> r=<span class="number">0</span>;r&lt;<span class="variable language_">this</span>.<span class="property">rows</span>;r++)</span><br><span class="line">        &#123;</span><br><span class="line">            g[r][<span class="number">0</span>]=g[r][<span class="variable language_">this</span>.<span class="property">cols</span>-<span class="number">1</span>]=<span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">let</span> c=<span class="number">0</span>;c&lt;<span class="variable language_">this</span>.<span class="property">cols</span>;c++)</span><br><span class="line">        &#123;</span><br><span class="line">            g[<span class="number">0</span>][c]=g[<span class="variable language_">this</span>.<span class="property">rows</span>-<span class="number">1</span>][c]=<span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//创建内部的随机障碍物,必须是沿中心轴对称</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">let</span> i=<span class="number">0</span>;i&lt;<span class="variable language_">this</span>.<span class="property">inner_walls_count</span>;i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">let</span> j=<span class="number">0</span>;j&lt;<span class="number">1000</span>;j++)<span class="comment">//暴力生成障碍物</span></span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">let</span> r=<span class="built_in">parseInt</span>(<span class="title class_">Math</span>.<span class="title function_">random</span>()*<span class="variable language_">this</span>.<span class="property">rows</span>);</span><br><span class="line">                <span class="keyword">let</span> c=<span class="built_in">parseInt</span>(<span class="title class_">Math</span>.<span class="title function_">random</span>()*<span class="variable language_">this</span>.<span class="property">cols</span>);</span><br><span class="line">                <span class="keyword">if</span>(g[r][c] || g[<span class="variable language_">this</span>.<span class="property">rows</span>-<span class="number">1</span>-r][<span class="variable language_">this</span>.<span class="property">cols</span>-<span class="number">1</span>-c])<span class="keyword">continue</span>;</span><br><span class="line">                <span class="keyword">if</span>(r===<span class="variable language_">this</span>.<span class="property">rows</span>-<span class="number">2</span>&amp;&amp;c===<span class="number">1</span> || c==<span class="variable language_">this</span>.<span class="property">cols</span>-<span class="number">2</span>&amp;&amp;r===<span class="number">1</span>)<span class="keyword">continue</span>;</span><br><span class="line">                g[r][c]=g[<span class="variable language_">this</span>.<span class="property">rows</span>-<span class="number">1</span>-r][<span class="variable language_">this</span>.<span class="property">cols</span>-<span class="number">1</span>-c]=<span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">const</span> copy_g= <span class="title class_">JSON</span>.<span class="title function_">parse</span>(<span class="title class_">JSON</span>.<span class="title function_">stringify</span>(g));</span><br><span class="line">        <span class="keyword">if</span>(!<span class="variable language_">this</span>.<span class="title function_">check_connectivity</span>(copy_g,<span class="variable language_">this</span>.<span class="property">rows</span>-<span class="number">2</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="variable language_">this</span>.<span class="property">cols</span>-<span class="number">2</span>))<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">let</span> r=<span class="number">0</span>;r&lt;<span class="variable language_">this</span>.<span class="property">rows</span>;r++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">let</span> c=<span class="number">0</span>;c&lt;<span class="variable language_">this</span>.<span class="property">cols</span>;c++)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span>(g[r][c])</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="variable language_">this</span>.<span class="property">walls</span>.<span class="title function_">push</span>(<span class="keyword">new</span> <span class="title class_">Wall</span>(r,c,<span class="variable language_">this</span>));</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="title function_">update</span>(<span class="params"></span>)&#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="title function_">update_size</span>();</span><br><span class="line">        <span class="variable language_">this</span>.<span class="title function_">render</span>();</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="title function_">render</span>(<span class="params"></span>)&#123;</span><br><span class="line">        <span class="keyword">const</span> color_even=<span class="string">&quot;#AAD751&quot;</span>,color_odd=<span class="string">&quot;#A2D149&quot;</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">let</span> r=<span class="number">0</span>;r&lt;<span class="variable language_">this</span>.<span class="property">rows</span>;r++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">let</span> c=<span class="number">0</span>;c&lt;<span class="variable language_">this</span>.<span class="property">cols</span>;c++)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span>((r+c)%<span class="number">2</span> ===<span class="number">0</span>)</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="variable language_">this</span>.<span class="property">ctx</span>.<span class="property">fillStyle</span>=color_even;</span><br><span class="line">                &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                    <span class="variable language_">this</span>.<span class="property">ctx</span>.<span class="property">fillStyle</span>=color_odd;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="variable language_">this</span>.<span class="property">ctx</span>.<span class="title function_">fillRect</span>(c*<span class="variable language_">this</span>.<span class="property">L</span>,r*<span class="variable language_">this</span>.<span class="property">L</span>,<span class="variable language_">this</span>.<span class="property">L</span>,<span class="variable language_">this</span>.<span class="property">L</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>接下来，用Live Server打开index.html，就能看见地图了<br>不断使用刷新键刷新网页，可以看到每一次都会动态生成不同的地图</p>
+<p><img src="https://s2.loli.net/2022/12/03/M89XoGsC5tFvTSD.png" alt="04.png"></p>
+<p>接下来，我们会实现蛇的绘制。项目进度30%，加油！！</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2022" class="archive-year">2022</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/12/20/%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BBLIME--%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%8F%AF%E8%A7%A3%E9%87%8A%E6%80%A7-limecodereading/" class="archive-article-date">
-  	<time datetime="2022-12-20T04:45:24.176Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-12-20</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/12/20/%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BBLIME--%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%8F%AF%E8%A7%A3%E9%87%8A%E6%80%A7-limecodereading/">源码阅读LIME--机器学习可解释性</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/可解释性//" class="article-tag-list-link color5">可解释性</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/12/20/idea%20mysql%E5%8F%AF%E8%A7%86%E5%8C%96%E5%B7%A5%E5%85%B7%EF%BC%8C%E5%87%BA%E7%8E%B0You%20have%20an%20error%20in%20your%20SQL%20syntax;%20check%20the%20manual%20%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86-ideamysqlerrordeal/" class="archive-article-date">
-  	<time datetime="2022-12-20T04:45:24.155Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-12-20</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/12/20/idea%20mysql%E5%8F%AF%E8%A7%86%E5%8C%96%E5%B7%A5%E5%85%B7%EF%BC%8C%E5%87%BA%E7%8E%B0You%20have%20an%20error%20in%20your%20SQL%20syntax;%20check%20the%20manual%20%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86-ideamysqlerrordeal/">idea mysql可视化工具，出现You have an error in your SQL syntax; check the manual .....错误处理</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/后端//" class="article-tag-list-link color3">后端</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/12/20/NLP%E5%8F%AF%E8%A7%A3%E9%87%8A%E6%80%A7%E5%85%A5%E9%97%A8md-nlp%E5%8F%AF%E8%A7%A3%E9%87%8A%E6%80%A7%E5%85%A5%E9%97%A8md/" class="archive-article-date">
-  	<time datetime="2022-12-20T04:45:21.645Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-12-20</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/12/20/NLP%E5%8F%AF%E8%A7%A3%E9%87%8A%E6%80%A7%E5%85%A5%E9%97%A8md-nlp%E5%8F%AF%E8%A7%A3%E9%87%8A%E6%80%A7%E5%85%A5%E9%97%A8md/">NLP可解释性入门.md</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/12/20/LIME%E6%A8%A1%E5%9E%8B---Why%20Should%20I%20Trust%20You%20Explaining%20the%20Predictions%20of%20Any%20Classifier%20%E9%80%9F%E8%AF%BB-limemodel/" class="archive-article-date">
-  	<time datetime="2022-12-20T04:45:20.337Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-12-20</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/12/20/LIME%E6%A8%A1%E5%9E%8B---Why%20Should%20I%20Trust%20You%20Explaining%20the%20Predictions%20of%20Any%20Classifier%20%E9%80%9F%E8%AF%BB-limemodel/">LIME模型---&#34;Why Should I Trust You?&#34;Explaining the Predictions of Any Classifier 速读</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/可解释性//" class="article-tag-list-link color5">可解释性</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/12/20/Axiomatic%20Attribution%20for%20Deep%20Networks%E8%A7%A3%E8%AF%BB%EF%BC%88Integrated%20Gradients%E6%96%B9%E6%B3%95%EF%BC%89-integratedgradientspaper/" class="archive-article-date">
-  	<time datetime="2022-12-20T04:45:20.332Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-12-20</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/12/20/Axiomatic%20Attribution%20for%20Deep%20Networks%E8%A7%A3%E8%AF%BB%EF%BC%88Integrated%20Gradients%E6%96%B9%E6%B3%95%EF%BC%89-integratedgradientspaper/">Axiomatic Attribution for Deep Networks解读（Integrated Gradients方法）</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/可解释性//" class="article-tag-list-link color5">可解释性</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/12/20/%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BBIntegratedGradients---%E5%9F%BA%E4%BA%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%8F%AF%E8%A7%A3%E9%87%8A%E6%80%A7%E6%A1%86%E6%9E%B6Captum-integratedgradientscodereading/" class="archive-article-date">
-  	<time datetime="2022-12-20T04:45:20.328Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-12-20</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/12/20/%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BBIntegratedGradients---%E5%9F%BA%E4%BA%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%8F%AF%E8%A7%A3%E9%87%8A%E6%80%A7%E6%A1%86%E6%9E%B6Captum-integratedgradientscodereading/">源码阅读IntegratedGradients---基于深度学习可解释性框架Captum</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/可解释性//" class="article-tag-list-link color5">可解释性</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/12/02/%E8%8A%82%E6%B5%81%E2%80%94%E2%80%94%E4%BB%A5%E8%B4%AA%E5%90%83%E8%9B%87%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1%E4%B8%BA%E4%BE%8B-%E8%B4%AA%E5%90%83%E8%9B%87%E5%BD%93%E4%B8%AD%E7%9A%84%E8%8A%82%E6%B5%81%E6%80%9D%E6%83%B3/" class="archive-article-date">
-  	<time datetime="2022-12-02T08:24:54.466Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-12-02</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/12/02/%E8%8A%82%E6%B5%81%E2%80%94%E2%80%94%E4%BB%A5%E8%B4%AA%E5%90%83%E8%9B%87%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1%E4%B8%BA%E4%BE%8B-%E8%B4%AA%E5%90%83%E8%9B%87%E5%BD%93%E4%B8%AD%E7%9A%84%E8%8A%82%E6%B5%81%E6%80%9D%E6%83%B3/">节流——以贪吃蛇游戏设计为例</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
+      
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
@@ -410,32 +235,97 @@
 	</div>
 
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2022/11/30/javascript%E6%89%8B%E6%8A%8A%E6%89%8B%E5%AE%9E%E7%8E%B0%E7%AE%80%E6%98%93%E8%B4%AA%E5%90%83%E8%9B%87%EF%BC%88%E4%BA%8C%EF%BC%89%E5%9C%B0%E5%9B%BE%E7%BB%98%E5%88%B6%E2%80%94%E2%80%94%E6%B1%9F%E5%B1%B1%E5%A6%82%E7%94%BB%EF%BC%8C%E4%B8%80%E6%97%B6%E5%A4%9A%E5%B0%91%E8%B1%AA%E6%9D%B0-snake02/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/12/01/javascript%E6%89%8B%E6%8A%8A%E6%89%8B%E5%AE%9E%E7%8E%B0%E7%AE%80%E6%98%93%E8%B4%AA%E5%90%83%E8%9B%87%EF%BC%88%E4%BA%94%EF%BC%89%E6%B6%A6%E8%89%B2%E3%80%81%E5%88%A4%E8%BE%93%E3%80%81%E6%8E%A7%E9%95%BF%20%E2%80%94%E2%80%94%E5%A4%A9%E4%B8%8B%E5%A4%A7%E4%BA%8B%EF%BC%8C%E5%BF%85%E4%BD%9C%E4%BA%8E%E7%BB%86-snake05/" class="archive-article-date">
-  	<time datetime="2022-12-01T06:26:02.226Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-12-01</time>
-</a>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-javascript手把手实现简易贪吃蛇（一）初始工作——雄关漫道真如铁，而今迈步从头越-snake01" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
     <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/12/01/javascript%E6%89%8B%E6%8A%8A%E6%89%8B%E5%AE%9E%E7%8E%B0%E7%AE%80%E6%98%93%E8%B4%AA%E5%90%83%E8%9B%87%EF%BC%88%E4%BA%94%EF%BC%89%E6%B6%A6%E8%89%B2%E3%80%81%E5%88%A4%E8%BE%93%E3%80%81%E6%8E%A7%E9%95%BF%20%E2%80%94%E2%80%94%E5%A4%A9%E4%B8%8B%E5%A4%A7%E4%BA%8B%EF%BC%8C%E5%BF%85%E4%BD%9C%E4%BA%8E%E7%BB%86-snake05/">javascript手把手实现简易贪吃蛇（五）润色、判输、控长 ——天下大事，必作于细</a>
+      <a class="article-title" href="/2022/11/30/javascript%E6%89%8B%E6%8A%8A%E6%89%8B%E5%AE%9E%E7%8E%B0%E7%AE%80%E6%98%93%E8%B4%AA%E5%90%83%E8%9B%87%EF%BC%88%E4%B8%80%EF%BC%89%E5%88%9D%E5%A7%8B%E5%B7%A5%E4%BD%9C%E2%80%94%E2%80%94%E9%9B%84%E5%85%B3%E6%BC%AB%E9%81%93%E7%9C%9F%E5%A6%82%E9%93%81%EF%BC%8C%E8%80%8C%E4%BB%8A%E8%BF%88%E6%AD%A5%E4%BB%8E%E5%A4%B4%E8%B6%8A-snake01/">javascript手把手实现简易贪吃蛇（一）初始工作——雄关漫道真如铁，而今迈步从头越</a>
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
+        
+        <a href="/2022/11/30/javascript%E6%89%8B%E6%8A%8A%E6%89%8B%E5%AE%9E%E7%8E%B0%E7%AE%80%E6%98%93%E8%B4%AA%E5%90%83%E8%9B%87%EF%BC%88%E4%B8%80%EF%BC%89%E5%88%9D%E5%A7%8B%E5%B7%A5%E4%BD%9C%E2%80%94%E2%80%94%E9%9B%84%E5%85%B3%E6%BC%AB%E9%81%93%E7%9C%9F%E5%A6%82%E9%93%81%EF%BC%8C%E8%80%8C%E4%BB%8A%E8%BF%88%E6%AD%A5%E4%BB%8E%E5%A4%B4%E8%B6%8A-snake01/" class="archive-article-date">
+  	<time datetime="2022-11-30T05:32:20.742Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-11-30</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="完整的项目地址"><a href="#完整的项目地址" class="headerlink" title="完整的项目地址"></a>完整的项目地址</h1><p><a target="_blank" rel="noopener" href="https://github.com/WangQianao/Greedy-Snake-Game">javascript实现简单的贪吃蛇小游戏</a></p>
+<h1 id="该系列文章将会实现的最终效果"><a href="#该系列文章将会实现的最终效果" class="headerlink" title="该系列文章将会实现的最终效果"></a>该系列文章将会实现的最终效果</h1><p><img src="https://s2.loli.net/2022/12/01/zFeIUm81Gr3lCkP.gif" alt="2022-12-01 13-57-51.gif"></p>
+<h1 id="开发环境（vscode）"><a href="#开发环境（vscode）" class="headerlink" title="开发环境（vscode）"></a>开发环境（vscode）</h1><p>如果有自己喜欢的开发环境，请跳过这一节</p>
+<h2 id="安装vscode"><a href="#安装vscode" class="headerlink" title="安装vscode"></a>安装vscode</h2><p>地址：<a target="_blank" rel="noopener" href="https://code.visualstudio.com/">vscode官网</a></p>
+<h2 id="在vscode上安装插件Live-Server"><a href="#在vscode上安装插件Live-Server" class="headerlink" title="在vscode上安装插件Live Server"></a>在vscode上安装插件Live Server</h2><p><img src="https://s2.loli.net/2022/11/30/j3SmN9TgqtR8Ewf.png" alt="屏幕截图 2022-11-30 134308.png"><br>开发环境准备完成！接下来就可以开始贪吃蛇的开发了。</p>
+<h1 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h1><h2 id="创建index-html，一切的开始"><a href="#创建index-html，一切的开始" class="headerlink" title="创建index.html，一切的开始"></a>创建index.html，一切的开始</h2><p>新建一个文件夹，起一个你喜欢的名字，标志项目的开始<br><br>在文件夹里新建一个html文件，起名index.html<br><br>将下面的代码块中的内容复制到index.html文件中</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">&quot;X-UA-Compatible&quot;</span> <span class="attr">content</span>=<span class="string">&quot;IE=edge&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>贪吃蛇<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://cdn.acwing.com/static/jquery/js/jquery-3.3.1.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">        <span class="selector-class">.playground</span> &#123;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">width</span>: <span class="number">60vw</span>;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">height</span>: <span class="number">70vh</span>;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">margin</span>: <span class="number">40px</span> auto;</span></span><br><span class="line"><span class="language-css">        &#125;</span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css">        <span class="selector-class">.gamemap</span> &#123;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">width</span>: <span class="number">100%</span>;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">height</span>: <span class="number">100%</span>;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">display</span>: flex;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">justify-content</span>: center;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">align-items</span>: center;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">background-color</span>: lightblue;</span></span><br><span class="line"><span class="language-css">        &#125;</span></span><br><span class="line"><span class="language-css">    </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;playground&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;gamemap&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">canvas</span> <span class="attr">tabindex</span>=<span class="string">&quot;0&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">canvas</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>接着用鼠标选中index.html文件，点击鼠标右键，在弹出的菜单中选择第一个“Open with Live Server”,就可以在浏览器中看到我们html文件渲染后的结果啦<br><img src="https://s2.loli.net/2022/11/30/YBDG9Qoie5qtMuF.png" alt="01.png"><br>我们的贪吃蛇游戏就将在这块浅蓝色的区域上进行</p>
+<h2 id="canvas"><a href="#canvas" class="headerlink" title="canvas"></a>canvas</h2><p>Canvas API 提供了一个通过JavaScript 和 HTML的canvas 元素来绘制图形的方式。简单来说，我们可以用canvas和js的组合绘制各种各样的图形。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">canvas</span> <span class="attr">id</span>=<span class="string">&quot;canvas&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">canvas</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">const</span> canvas = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;canvas&#x27;</span>);</span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">const</span> ctx = canvas.<span class="title function_">getContext</span>(<span class="string">&#x27;2d&#x27;</span>);</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">        ctx.<span class="property">fillStyle</span> = <span class="string">&#x27;green&#x27;</span>;</span></span><br><span class="line"><span class="language-javascript">        ctx.<span class="title function_">fillRect</span>(<span class="number">10</span>, <span class="number">10</span>, <span class="number">150</span>, <span class="number">100</span>);</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>上面的代码就绘制了一个如下图所示的绿色矩形<br><img src="https://s2.loli.net/2022/11/30/1yPObMTLFtnfqmw.png" alt="02.png"><br>我们的贪吃蛇游戏就是基于canvas和js来实现的。如果你不了解canvas，完全没有关系，只需要把它当成一个api来调用就可以了。<br><br>我们在canvas标签中，使用了”tabindex&#x3D;0”这个属性，tabindex属性能够帮助我们实现元素聚焦，使得canvas能够监听键盘输入，从而控制游戏的运行。</p>
+<h2 id="jquery"><a href="#jquery" class="headerlink" title="jquery"></a>jquery</h2><p>在上面的代码中，我们用下面这一行代码引入了jquery，jquery是一个库，能够简化我们对html中元素的操作</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script src=<span class="string">&quot;https://cdn.acwing.com/static/jquery/js/jquery-3.3.1.min.js&quot;</span>&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="游戏元素"><a href="#游戏元素" class="headerlink" title="游戏元素"></a>游戏元素</h2><p>在贪吃蛇游戏中，我们需要管理很多游戏元素，比如地图，蛇，障碍物等等。我们可以创建一个统一的类GameObject来管理这些元素。</p>
+新建一个文件夹 js,用来存放所有用到的js文件,在该文件夹下创建一个名为GameObject.js的文件,将下列代码复制到该文件中
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="variable constant_">GAME_OBJECTS</span> = [];</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">GameObject</span> &#123;</span><br><span class="line">    <span class="title function_">constructor</span>(<span class="params"></span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="variable constant_">GAME_OBJECTS</span>.<span class="title function_">push</span>(<span class="variable language_">this</span>);</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">timedelta</span>=<span class="number">0</span>;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">has_called_start</span>=<span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="title function_">start</span>(<span class="params"></span>)</span><br><span class="line">    &#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="title function_">update</span>(<span class="params"></span>)</span><br><span class="line">    &#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="title function_">on_destroy</span>(<span class="params"></span>)</span><br><span class="line">    &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="title function_">destroy</span>(<span class="params"></span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="title function_">on_destroy</span>();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">let</span> i <span class="keyword">in</span> <span class="variable constant_">GAME_OBJECTS</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">const</span> obj = <span class="variable constant_">GAME_OBJECTS</span>[i];</span><br><span class="line">            <span class="keyword">if</span>(obj === <span class="variable language_">this</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="variable constant_">GAME_OBJECTS</span>.<span class="title function_">splice</span>(i);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> last_timestamp;</span><br><span class="line"><span class="keyword">const</span> <span class="title function_">step</span> = timestamp =&gt;&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> obj <span class="keyword">of</span> <span class="variable constant_">GAME_OBJECTS</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(!obj.<span class="property">has_called_start</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            obj.<span class="property">has_called_start</span>=<span class="literal">true</span>;</span><br><span class="line">            obj.<span class="title function_">start</span>();</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            obj.<span class="property">timedelta</span>=timestamp-last_timestamp;</span><br><span class="line">            obj.<span class="title function_">update</span>();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    last_timestamp=timestamp;</span><br><span class="line">    <span class="title function_">requestAnimationFrame</span>(step)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_">requestAnimationFrame</span>(step)</span><br></pre></td></tr></table></figure>
+<p>在代码中，我们声明了一个名为GameObject的类，我们将用这个类去管理所有游戏中的元素。</p>
+<p>在游戏中，每一个物体都有创建，更新，以及销毁这样几个阶段，俗称生命周期。体现为start()、update()、on_destory()、destory()函数。一般start和destory相关的函数只会被调用一次，而update函数却会被调用多次。</p>
+<p>在代码开头，我们声明了一个GAME_OBJECTS数组,每一个游戏元素都将在被创建的时候加入到这个数组中，在被销毁时它将被移除出这个数组</p>
+
+<h2 id="window-requestAnimationFrame函数"><a href="#window-requestAnimationFrame函数" class="headerlink" title="window.requestAnimationFrame函数"></a>window.requestAnimationFrame函数</h2><p>window.requestAnimationFrame() 告诉浏览器——你希望执行一个动画，并且要求浏览器在下次重绘之前调用指定的回调函数更新动画。该方法需要传入一个回调函数作为参数，该回调函数会在浏览器下一次重绘之前执行。</p>
+<p>回调函数执行次数通常是每秒 60 次
+若你想在浏览器下次重绘之前继续更新下一帧动画，那么回调函数自身必须再次调用window.requestAnimationFrame()。</p>
+<p>回调函数会被传入一个timestamp参数，指示当前被 requestAnimationFrame() 调用的回调函数被触发的时间，单位是毫秒。</p>
+<p>在这里，我们声明了一个名为step的回调函数，在这个函数里，我们会更新所有游戏元素的状态，并获取两次调用requestAnimationFrame之间的时间间隔，这个间隔对后续的游戏编写是有用的。</p>
+
+<p>第一章内容到这里就结束了，下一章，我们将开始地图的绘制。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
@@ -448,32 +338,71 @@
 	</div>
 
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2022/11/30/javascript%E6%89%8B%E6%8A%8A%E6%89%8B%E5%AE%9E%E7%8E%B0%E7%AE%80%E6%98%93%E8%B4%AA%E5%90%83%E8%9B%87%EF%BC%88%E4%B8%80%EF%BC%89%E5%88%9D%E5%A7%8B%E5%B7%A5%E4%BD%9C%E2%80%94%E2%80%94%E9%9B%84%E5%85%B3%E6%BC%AB%E9%81%93%E7%9C%9F%E5%A6%82%E9%93%81%EF%BC%8C%E8%80%8C%E4%BB%8A%E8%BF%88%E6%AD%A5%E4%BB%8E%E5%A4%B4%E8%B6%8A-snake01/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/12/01/javascript%E6%89%8B%E6%8A%8A%E6%89%8B%E5%AE%9E%E7%8E%B0%E7%AE%80%E6%98%93%E8%B4%AA%E5%90%83%E8%9B%87%EF%BC%88%E5%9B%9B%EF%BC%89%E8%9B%87%E7%9A%84%E7%A7%BB%E5%8A%A8%20%E2%80%94%E2%80%94%20%E6%AD%A4%E8%9B%87%E8%8B%A5%E9%81%82%E5%8D%83%E9%87%8C%E5%BF%97%EF%BC%8C%E8%BF%BD%E9%A3%8E%E7%8A%B9%E5%8F%AF%E5%88%B0%E5%A4%A9%E6%B6%AF-snake04/" class="archive-article-date">
-  	<time datetime="2022-12-01T02:45:30.303Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-12-01</time>
-</a>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Vue如何动态取得某个元素的宽高-vue如何动态取得某个元素的宽高" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
     <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/12/01/javascript%E6%89%8B%E6%8A%8A%E6%89%8B%E5%AE%9E%E7%8E%B0%E7%AE%80%E6%98%93%E8%B4%AA%E5%90%83%E8%9B%87%EF%BC%88%E5%9B%9B%EF%BC%89%E8%9B%87%E7%9A%84%E7%A7%BB%E5%8A%A8%20%E2%80%94%E2%80%94%20%E6%AD%A4%E8%9B%87%E8%8B%A5%E9%81%82%E5%8D%83%E9%87%8C%E5%BF%97%EF%BC%8C%E8%BF%BD%E9%A3%8E%E7%8A%B9%E5%8F%AF%E5%88%B0%E5%A4%A9%E6%B6%AF-snake04/">javascript手把手实现简易贪吃蛇（四）蛇的移动 —— 此蛇若遂千里志，追风犹可到天涯</a>
+      <a class="article-title" href="/2022/11/30/Vue%E5%A6%82%E4%BD%95%E5%8A%A8%E6%80%81%E5%8F%96%E5%BE%97%E6%9F%90%E4%B8%AA%E5%85%83%E7%B4%A0%E7%9A%84%E5%AE%BD%E9%AB%98-vue%E5%A6%82%E4%BD%95%E5%8A%A8%E6%80%81%E5%8F%96%E5%BE%97%E6%9F%90%E4%B8%AA%E5%85%83%E7%B4%A0%E7%9A%84%E5%AE%BD%E9%AB%98/">Vue如何动态取得某个元素的宽高</a>
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
+        
+        <a href="/2022/11/30/Vue%E5%A6%82%E4%BD%95%E5%8A%A8%E6%80%81%E5%8F%96%E5%BE%97%E6%9F%90%E4%B8%AA%E5%85%83%E7%B4%A0%E7%9A%84%E5%AE%BD%E9%AB%98-vue%E5%A6%82%E4%BD%95%E5%8A%A8%E6%80%81%E5%8F%96%E5%BE%97%E6%9F%90%E4%B8%AA%E5%85%83%E7%B4%A0%E7%9A%84%E5%AE%BD%E9%AB%98/" class="archive-article-date">
+  	<time datetime="2022-11-30T03:17:28.322Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-11-30</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>通过vue获取某个元素的宽高</p>
+<p>先在这个元素中设定<strong>ref</strong>属性将其绑定</p>
+<p>再通过其<strong>clientWidth、clientHeight</strong>属性就可以拿到宽度和高度了</p>
+<p>简单示例如下</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">   <span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">ref</span>=<span class="string">&quot;parent&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">   <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml"><span class="keyword">import</span> &#123;ref,onMounted&#125; <span class="keyword">from</span> <span class="string">&#x27;vue&#x27;</span></span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml"><span class="title function_">setup</span>(<span class="params"></span>)</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">&#123;</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">    <span class="keyword">let</span> parent = <span class="title function_">ref</span>(<span class="literal">null</span>);</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">    <span class="title function_">onMounted</span>(<span class="params"></span>)&#123;</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">    	<span class="variable language_">console</span>.<span class="title function_">log</span>(parent.<span class="property">value</span>.<span class="property">clientWidth</span>,parent.<span class="property">value</span>.<span class="property">clientHeight</span>)</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">        <span class="comment">//输出200，300</span></span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">    &#125;</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">    <span class="keyword">return</span>&#123;</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">        parent</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">    &#125;</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">&#125;</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">style</span> <span class="attr">scoped</span>&gt;</span><span class="language-css"></span></span></span><br><span class="line"><span class="language-css"><span class="language-xml"><span class="selector-tag">div</span>&#123;</span></span></span><br><span class="line"><span class="language-css"><span class="language-xml">    <span class="attribute">width</span>:<span class="number">200px</span>;</span></span></span><br><span class="line"><span class="language-css"><span class="language-xml">    <span class="attribute">height</span>:<span class="number">300px</span>;</span></span></span><br><span class="line"><span class="language-css"><span class="language-xml">&#125;</span></span></span><br><span class="line"><span class="language-css"><span class="language-xml"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span></span><br><span class="line">    </span><br></pre></td></tr></table></figure>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
@@ -486,57 +415,41 @@
 	</div>
 
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2022/11/30/Vue%E5%A6%82%E4%BD%95%E5%8A%A8%E6%80%81%E5%8F%96%E5%BE%97%E6%9F%90%E4%B8%AA%E5%85%83%E7%B4%A0%E7%9A%84%E5%AE%BD%E9%AB%98-vue%E5%A6%82%E4%BD%95%E5%8A%A8%E6%80%81%E5%8F%96%E5%BE%97%E6%9F%90%E4%B8%AA%E5%85%83%E7%B4%A0%E7%9A%84%E5%AE%BD%E9%AB%98/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/11/30/javascript%E6%89%8B%E6%8A%8A%E6%89%8B%E5%AE%9E%E7%8E%B0%E7%AE%80%E6%98%93%E8%B4%AA%E5%90%83%E8%9B%87%EF%BC%88%E4%B8%89%EF%BC%89%E8%9B%87%E7%9A%84%E7%BB%98%E5%88%B6%E2%80%94%E2%80%94%E5%A4%95%E9%81%BF%E9%95%BF%E8%9B%87-snake03/" class="archive-article-date">
-  	<time datetime="2022-11-30T11:18:49.526Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-11-30</time>
-</a>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/11/30/javascript%E6%89%8B%E6%8A%8A%E6%89%8B%E5%AE%9E%E7%8E%B0%E7%AE%80%E6%98%93%E8%B4%AA%E5%90%83%E8%9B%87%EF%BC%88%E4%B8%89%EF%BC%89%E8%9B%87%E7%9A%84%E7%BB%98%E5%88%B6%E2%80%94%E2%80%94%E5%A4%95%E9%81%BF%E9%95%BF%E8%9B%87-snake03/">javascript手把手实现简易贪吃蛇（三）蛇的绘制——夕避长蛇</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/前端//" class="article-tag-list-link color3">前端</a>
-        		</li>
-      		
-		</ul>
-	</div>
+        
+        
+    </div>
+</aside>
 
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
 
-    
+
+  
+  
     <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/archives/page/2/">2</a><a class="extend next" rel="next" href="/archives/page/2/">Next &amp;raquo;</a>
+      <a class="extend prev" rel="prev" href="/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
     </nav>
   
 
@@ -560,9 +473,9 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: false,
+		isHome: true,
 		isPost: false,
-		isArchive: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,

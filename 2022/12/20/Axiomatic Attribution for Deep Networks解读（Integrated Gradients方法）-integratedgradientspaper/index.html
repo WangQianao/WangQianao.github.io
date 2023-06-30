@@ -6,15 +6,26 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://WangQianao.github.io">
-  <title>Archives | Hexo</title>
+  <title>Axiomatic Attribution for Deep Networks解读（Integrated Gradients方法） | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="https://wangqianao.github.io/archives/index.html">
+  <meta name="description" content="摘要  这篇文章主要研究的是如何将模型的预测归因到模型的输入上这个问题。   作者提出了两条归因方法应该满足的基本定理，敏感性（Sensitivity）和实现不变性（Implementation Invariance ）。大多数的归因方法并没有满足这两条定理。作者基于这两条定理提出了一个新的方法名叫Integrated Gradients,直译过来就是用积分方法求梯度。这个方法不需要修改原始模">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Axiomatic Attribution for Deep Networks解读（Integrated Gradients方法）">
+<meta property="og:url" content="https://wangqianao.github.io/2022/12/20/Axiomatic%20Attribution%20for%20Deep%20Networks%E8%A7%A3%E8%AF%BB%EF%BC%88Integrated%20Gradients%E6%96%B9%E6%B3%95%EF%BC%89-integratedgradientspaper/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="摘要  这篇文章主要研究的是如何将模型的预测归因到模型的输入上这个问题。   作者提出了两条归因方法应该满足的基本定理，敏感性（Sensitivity）和实现不变性（Implementation Invariance ）。大多数的归因方法并没有满足这两条定理。作者基于这两条定理提出了一个新的方法名叫Integrated Gradients,直译过来就是用积分方法求梯度。这个方法不需要修改原始模">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://picx.zhimg.com/v2-6ebf92cad8d47eb08c90faf4c0be0ded_720w.jpg?source=d16d100b">
+<meta property="og:image" content="https://pic1.zhimg.com/v2-fdd20a552c62d5e2954656430be23d84_720w.jpg?source=d16d100b">
+<meta property="og:image" content="https://picx.zhimg.com/v2-33b7be4724225d99c7087379ffada4e2_720w.jpg?source=d16d100b">
+<meta property="og:image" content="https://pic1.zhimg.com/v2-01071a5ded747bbca44e99691cb678dc_720w.jpg?source=d16d100b">
+<meta property="og:image" content="https://pic1.zhimg.com/v2-bb838b456b45a57833824cdbed49a42f_720w.jpg?source=d16d100b">
+<meta property="og:image" content="https://pica.zhimg.com/v2-449150748eb981eb9be010e5b77634df_720w.jpg?source=d16d100b">
+<meta property="article:published_time" content="2022-12-20T04:45:20.332Z">
+<meta property="article:modified_time" content="2022-12-20T05:01:43.435Z">
 <meta property="article:author" content="WangQianao">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://picx.zhimg.com/v2-6ebf92cad8d47eb08c90faf4c0be0ded_720w.jpg?source=d16d100b">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -150,178 +161,260 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-Axiomatic Attribution for Deep Networks解读（Integrated Gradients方法）-integratedgradientspaper" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2022" class="archive-year">2022</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/12/20/%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BBLIME--%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%8F%AF%E8%A7%A3%E9%87%8A%E6%80%A7-limecodereading/" class="archive-article-date">
-  	<time datetime="2022-12-20T04:45:24.176Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-12-20</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/12/20/%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BBLIME--%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%8F%AF%E8%A7%A3%E9%87%8A%E6%80%A7-limecodereading/">源码阅读LIME--机器学习可解释性</a>
+    <h1 class="article-title" itemprop="name">
+      Axiomatic Attribution for Deep Networks解读（Integrated Gradients方法）
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/可解释性//" class="article-tag-list-link color5">可解释性</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/12/20/idea%20mysql%E5%8F%AF%E8%A7%86%E5%8C%96%E5%B7%A5%E5%85%B7%EF%BC%8C%E5%87%BA%E7%8E%B0You%20have%20an%20error%20in%20your%20SQL%20syntax;%20check%20the%20manual%20%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86-ideamysqlerrordeal/" class="archive-article-date">
-  	<time datetime="2022-12-20T04:45:24.155Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-12-20</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/12/20/idea%20mysql%E5%8F%AF%E8%A7%86%E5%8C%96%E5%B7%A5%E5%85%B7%EF%BC%8C%E5%87%BA%E7%8E%B0You%20have%20an%20error%20in%20your%20SQL%20syntax;%20check%20the%20manual%20%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86-ideamysqlerrordeal/">idea mysql可视化工具，出现You have an error in your SQL syntax; check the manual .....错误处理</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/后端//" class="article-tag-list-link color3">后端</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/12/20/NLP%E5%8F%AF%E8%A7%A3%E9%87%8A%E6%80%A7%E5%85%A5%E9%97%A8md-nlp%E5%8F%AF%E8%A7%A3%E9%87%8A%E6%80%A7%E5%85%A5%E9%97%A8md/" class="archive-article-date">
-  	<time datetime="2022-12-20T04:45:21.645Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-12-20</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/12/20/NLP%E5%8F%AF%E8%A7%A3%E9%87%8A%E6%80%A7%E5%85%A5%E9%97%A8md-nlp%E5%8F%AF%E8%A7%A3%E9%87%8A%E6%80%A7%E5%85%A5%E9%97%A8md/">NLP可解释性入门.md</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/12/20/LIME%E6%A8%A1%E5%9E%8B---Why%20Should%20I%20Trust%20You%20Explaining%20the%20Predictions%20of%20Any%20Classifier%20%E9%80%9F%E8%AF%BB-limemodel/" class="archive-article-date">
-  	<time datetime="2022-12-20T04:45:20.337Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-12-20</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/12/20/LIME%E6%A8%A1%E5%9E%8B---Why%20Should%20I%20Trust%20You%20Explaining%20the%20Predictions%20of%20Any%20Classifier%20%E9%80%9F%E8%AF%BB-limemodel/">LIME模型---&#34;Why Should I Trust You?&#34;Explaining the Predictions of Any Classifier 速读</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/可解释性//" class="article-tag-list-link color5">可解释性</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/12/20/Axiomatic%20Attribution%20for%20Deep%20Networks%E8%A7%A3%E8%AF%BB%EF%BC%88Integrated%20Gradients%E6%96%B9%E6%B3%95%EF%BC%89-integratedgradientspaper/" class="archive-article-date">
+        
+        <a href="/2022/12/20/Axiomatic%20Attribution%20for%20Deep%20Networks%E8%A7%A3%E8%AF%BB%EF%BC%88Integrated%20Gradients%E6%96%B9%E6%B3%95%EF%BC%89-integratedgradientspaper/" class="archive-article-date">
   	<time datetime="2022-12-20T04:45:20.332Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-12-20</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/12/20/Axiomatic%20Attribution%20for%20Deep%20Networks%E8%A7%A3%E8%AF%BB%EF%BC%88Integrated%20Gradients%E6%96%B9%E6%B3%95%EF%BC%89-integratedgradientspaper/">Axiomatic Attribution for Deep Networks解读（Integrated Gradients方法）</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <meta name = "referrer" content = "no-referrer" />
 
-        <div class="article-info info-on-right">
-          
-          
+<div class="public-DraftStyleDefault-block public-DraftStyleDefault-ltr" data-offset-key="d432v-0-0"><strong><span style="color: #000000; font-size: 18px;" data-offset-key="d432v-0-0">摘要</span></strong></div>
+<div class="Editable-unstyled" data-block="true" data-editor="4egnr" data-offset-key="1ot37-0-0">
+<div class="public-DraftStyleDefault-block public-DraftStyleDefault-ltr" data-offset-key="1ot37-0-0"><span data-offset-key="1ot37-0-0">这篇文章主要研究的是如何将模型的预测归因到模型的输入上这个问题。</span></div>
+</div>
+<div class="Editable-unstyled" data-block="true" data-editor="4egnr" data-offset-key="cro56-0-0">
+<div class="public-DraftStyleDefault-block public-DraftStyleDefault-ltr" data-offset-key="cro56-0-0"><span data-offset-key="cro56-0-0">作者提出了两条归因方法应该满足的基本定理，敏感性（Sensitivity）和实现不变性（<span data-offset-key="cro56-0-1">Implementation Invariance<span data-offset-key="cro56-0-2"> ）。大多数的归因方法并没有满足这两条定理。作者基于这两条定理提出了一个新的方法名叫Integrated Gradients,直译过来就是用积分方法求梯度。这个方法不需要修改原始模型且简单易用。作者用这个方法在图像模型，文本模型，化学模型（太可怕了）上做了测试，证明了这一方法在调试模网络，提取规则，更好的了解网络方面的作用。</span></span></span></div>
+</div>
+<div class="public-DraftStyleDefault-block public-DraftStyleDefault-ltr" data-offset-key="bdmv0-0-0"><strong><span style="font-size: 18px;" data-offset-key="bdmv0-0-0">介绍</span></strong></div>
+<div class="Editable-unstyled" data-block="true" data-editor="4egnr" data-offset-key="c4d99-0-0">
+<div class="public-DraftStyleDefault-block public-DraftStyleDefault-ltr" data-offset-key="c4d99-0-0"><span data-offset-key="c4d99-0-0">很多归因方法很难去评估。所以作者提出了两条定理并基于它们提出了integrated gradients</span></div>
+</div>
+<div class="Editable-unstyled" data-block="true" data-editor="4egnr" data-offset-key="4vc7g-0-0">
+<div class="public-DraftStyleDefault-block public-DraftStyleDefault-ltr" data-offset-key="4vc7g-0-0"><span data-offset-key="4vc7g-0-0">方法。对于归因问题，作者强调了基准线的概念。如果某件事情的发生是由于某个原因，那么这个原因的缺失就是基准线。在深度学习中，可以认为那些使得预测结果为中性的输入为基准线，比如在目标检测中，黑色图像就是基线，在文本分类中，全0的向量就可以作为基线。</span></div>
+</div>
+<div class="public-DraftStyleDefault-block public-DraftStyleDefault-ltr" data-offset-key="2qur3-0-0"><span style="font-size: 18px;"><strong><span data-offset-key="2qur3-0-0">两个基本定理</span></strong></span></div>
+<div class="Editable-unstyled" data-block="true" data-editor="4egnr" data-offset-key="dut57-0-0">
+<div class="public-DraftStyleDefault-block public-DraftStyleDefault-ltr" data-offset-key="dut57-0-0"><span data-offset-key="dut57-0-0">作者强调梯度和特征值的乘积是归因方法的不错的开始点。</span></div>
+</div>
+<div class="public-DraftStyleDefault-block public-DraftStyleDefault-ltr" data-offset-key="1vbal-0-0"><span data-offset-key="1vbal-0-0">1.Sensitivity(a)</span></div>
+<div class="Editable-unstyled" data-block="true" data-editor="4egnr" data-offset-key="3mtf7-0-0">
+<div class="public-DraftStyleDefault-block public-DraftStyleDefault-ltr" data-offset-key="3mtf7-0-0"><span data-offset-key="3mtf7-0-0">对于任意一个输入，如果基准线在某一个特征上有所不同，并且它们的预测结果都不同，那么这一个特征应该有一个非0的归因值。这也是非常符合人类直觉的。</span></div>
+</div>
+<div class="Editable-unstyled" data-block="true" data-editor="4egnr" data-offset-key="72uqi-0-0">
+<div class="public-DraftStyleDefault-block public-DraftStyleDefault-ltr" data-offset-key="72uqi-0-0"><span data-offset-key="72uqi-0-0">单纯的梯度是违反这个Sensitivity性质的。对于函数f(x) = 1 &minus; ReLU(1&minus;x)。对于输入x=2，基准线x=0,两个输入产生的预测结果不同，那么我们应该给x归因非0的值，但如果单纯求梯度的话，从函数图像上也可以很直观的看到，f(x)在x=2时的梯度为0.梯度对于Sensitivity性质的违反会导致梯度关注到完全不相关的特征上。如下图，看第二行fireboat,梯度并没有关注到真正重要的东西。</span></div>
+</div>
+<div class="Editable-unstyled" data-block="true" data-editor="4egnr" data-offset-key="4tijc-0-0">
+<div class="public-DraftStyleDefault-block public-DraftStyleDefault-ltr" data-offset-key="4tijc-0-0"><span data-offset-key="4tijc-0-0">&nbsp;</span></div>
+</div>
+<div class="Image-captionContainer" data-size="normal">
+<div class="Image-resizerContainer css-ym3v7r" data-size="normal">
+<div>
+<div>
+<div class="ImageDelete-Container css-xi606m">
+<div class="ImageDelete-Wrapper css-1gomreu"><img src="https://pica.zhimg.com/80/v2-de258913cf88fe46ca43121649c7b56b_720w.png?source=d16d100b" class="Image FocusPlugin--unfocused Image--isBlock" data-size="normal" data-rawwidth="553" data-rawheight="279" data-watermark="watermark" data-original-src="https://picx.zhimg.com/v2-de258913cf88fe46ca43121649c7b56b_720w.jpg?source=d16d100b" data-watermark-src="https://picx.zhimg.com/v2-6ebf92cad8d47eb08c90faf4c0be0ded_720w.jpg?source=d16d100b" />
+<div class="css-s0x03z">​</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="Editable-unstyled" data-block="true" data-editor="4egnr" data-offset-key="8npn9-0-0">
+<div class="public-DraftStyleDefault-block public-DraftStyleDefault-ltr" data-offset-key="8npn9-0-0"><span data-offset-key="8npn9-0-0">&nbsp;</span></div>
+</div>
+<div class="Editable-unstyled" data-block="true" data-editor="4egnr" data-offset-key="7d2vt-0-0">
+<div class="public-DraftStyleDefault-block public-DraftStyleDefault-ltr" data-offset-key="7d2vt-0-0"><span data-offset-key="7d2vt-0-0">第二类归因方法是从最终的预测分数，通过各层神经网络进行反向传播，最终归因到输入上。比如DeepLift,Layer-wise relevance propagation (LRP), Deconvolutional networks (DeConvNets), and Guided back-propagation这些方法。</span></div>
+</div>
+<div class="Editable-unstyled" data-block="true" data-editor="4egnr" data-offset-key="br6mg-0-0">
+<div class="public-DraftStyleDefault-block public-DraftStyleDefault-ltr" data-offset-key="br6mg-0-0"><span data-offset-key="br6mg-0-0">Deconvolution networks (DeConvNets)和 Guided back-propagation方法违反了Sensitivity。因为这些方法会使用到ReLU函数，所以使得行为类似于纯梯度求解，所以在之前讨论过的问题还会出现。</span></div>
+</div>
+<div class="Editable-unstyled" data-block="true" data-editor="4egnr" data-offset-key="f32rm-0-0">
+<div class="public-DraftStyleDefault-block public-DraftStyleDefault-ltr" data-offset-key="f32rm-0-0"><span data-offset-key="f32rm-0-0">DeepLift 和 LRP方法通过使用基准线保持了Sensitivity，但他们也违反了第二个定理。</span></div>
+</div>
+<div class="public-DraftStyleDefault-block public-DraftStyleDefault-ltr" data-offset-key="1spkq-0-0"><span data-offset-key="1spkq-0-0">2.实现不变性</span></div>
+<div class="Editable-unstyled" data-block="true" data-editor="4egnr" data-offset-key="82sv4-0-0">
+<div class="public-DraftStyleDefault-block public-DraftStyleDefault-ltr" data-offset-key="82sv4-0-0"><span data-offset-key="82sv4-0-0">如果两个神经网络对于任意的输入都能有相同的输出，那么我们说这两个网络是相同的。归因方法在两个相同的神经网络上产生的值也应该是相同的，这叫做实现不变性。</span></div>
+</div>
+<div class="Editable-unstyled" data-block="true" data-editor="4egnr" data-offset-key="9a12s-0-0">
+<div class="public-DraftStyleDefault-block public-DraftStyleDefault-ltr" data-offset-key="9a12s-0-0"><span data-offset-key="9a12s-0-0">对于链式求导法则</span></div>
+</div>
+<div class="Image-captionContainer" data-size="normal">
+<div class="Image-resizerContainer css-ym3v7r" data-size="normal">
+<div>
+<div>
+<div class="ImageDelete-Container css-xi606m">
+<div class="ImageDelete-Wrapper css-1gomreu"><img src="https://pica.zhimg.com/80/v2-c20a582f373a8172167779a0e713b7cb_720w.png?source=d16d100b" class="Image FocusPlugin--unfocused Image--isBlock" data-size="normal" data-rawwidth="230" data-rawheight="92" data-watermark="watermark" data-original-src="https://pic1.zhimg.com/v2-c20a582f373a8172167779a0e713b7cb_720w.jpg?source=d16d100b" data-watermark-src="https://pic1.zhimg.com/v2-fdd20a552c62d5e2954656430be23d84_720w.jpg?source=d16d100b" />
+<div class="css-s0x03z">​</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="Editable-unstyled" data-block="true" data-editor="4egnr" data-offset-key="4nqcn-0-0">
+<div class="public-DraftStyleDefault-block public-DraftStyleDefault-ltr" data-offset-key="4nqcn-0-0"><span data-offset-key="4nqcn-0-0">&nbsp;</span></div>
+</div>
+<div class="Editable-unstyled" data-block="true" data-editor="4egnr" data-offset-key="7k4ou-0-0">
+<div class="public-DraftStyleDefault-block public-DraftStyleDefault-ltr" data-offset-key="7k4ou-0-0"><span data-offset-key="7k4ou-0-0">,将f看作神经网络的输出，g看作神经网络的输入，h则看作神经网络的中间部分。LRP 和 DeepLift违反了实现不变性是因为它们计算的是离散梯度。</span></div>
+</div>
+<div class="Editable-unstyled" data-block="true" data-editor="4egnr" data-offset-key="2vtcg-0-0">
+<div class="public-DraftStyleDefault-block public-DraftStyleDefault-ltr" data-offset-key="2vtcg-0-0"><span data-offset-key="2vtcg-0-0">链式法则并不能为离散值保证不变性。 </span></div>
+</div>
+<div class="Image-captionContainer" data-size="normal">
+<div class="Image-resizerContainer css-ym3v7r" data-size="normal">
+<div>
+<div>
+<div class="ImageDelete-Container css-xi606m">
+<div class="ImageDelete-Wrapper css-1gomreu"><img src="https://pica.zhimg.com/80/v2-33b7be4724225d99c7087379ffada4e2_720w.png?source=d16d100b" class="Image FocusPlugin--unfocused Image--isBlock" data-size="normal" data-rawwidth="635" data-rawheight="101" data-watermark="watermark" data-original-src="https://picx.zhimg.com/v2-33b7be4724225d99c7087379ffada4e2_720w.jpg?source=d16d100b" />
+<div class="css-s0x03z">​</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="Editable-unstyled" data-block="true" data-editor="4egnr" data-offset-key="bc5nv-0-0">
+<div class="public-DraftStyleDefault-block public-DraftStyleDefault-ltr" data-offset-key="bc5nv-0-0"><span data-offset-key="bc5nv-0-0">&nbsp;</span></div>
+</div>
+<div class="Editable-unstyled" data-block="true" data-editor="4egnr" data-offset-key="60vjl-0-0">
+<div class="public-DraftStyleDefault-block public-DraftStyleDefault-ltr" data-offset-key="60vjl-0-0"><span data-offset-key="60vjl-0-0">。</span></div>
+</div>
+<div class="Editable-unstyled" data-block="true" data-editor="4egnr" data-offset-key="fjura-0-0">
+<div class="public-DraftStyleDefault-block public-DraftStyleDefault-ltr" data-offset-key="fjura-0-0"><span data-offset-key="fjura-0-0">如果不能保持实现不变性的话，对于两个相同的网络，归因方法却会给出两个不同的值，这显然是不对的。</span></div>
+</div>
+<div class="public-DraftStyleDefault-block public-DraftStyleDefault-ltr" data-offset-key="21vpb-0-0"><strong><span style="font-size: 18px;" data-offset-key="21vpb-0-0">Integrated Gradients</span></strong></div>
+<div class="Editable-unstyled" data-block="true" data-editor="4egnr" data-offset-key="evgai-0-0">
+<div class="public-DraftStyleDefault-block public-DraftStyleDefault-ltr" data-offset-key="evgai-0-0"><span data-offset-key="evgai-0-0">用最朴素的语言来说，想象空间中有两个点，在这两个点之间，存在着一条不清楚到底是什么形状的曲线将这两点相连，将这条曲线叫做两点之间的路径。对这条路径上的每一个点求导，在求和（其实就是积分的定义了），最后再乘以两点之间的差值，最后得出来的结果就是这个方法最后的值。</span></div>
+</div>
+<div class="Editable-unstyled" data-block="true" data-editor="4egnr" data-offset-key="7kmet-0-0">
+<div class="public-DraftStyleDefault-block public-DraftStyleDefault-ltr" data-offset-key="7kmet-0-0"><span data-offset-key="7kmet-0-0">用公式来描述就是下面这样，i的意思就是对第i维进行求解，x这个特征是有很多维的</span></div>
+</div>
+<div class="Editable-unstyled" data-block="true" data-editor="4egnr" data-offset-key="14jpn-0-0">
+<div class="public-DraftStyleDefault-block public-DraftStyleDefault-ltr" data-offset-key="14jpn-0-0"><span data-offset-key="14jpn-0-0">&nbsp;</span></div>
+</div>
+<div class="Image-captionContainer" data-size="normal">
+<div class="Image-resizerContainer css-ym3v7r" data-size="normal">
+<div class="ImageDelete-Container css-xi606m">
+<div class="ImageDelete-Wrapper css-1gomreu"><img src="https://pic1.zhimg.com/80/v2-01071a5ded747bbca44e99691cb678dc_720w.png?source=d16d100b" class="Image FocusPlugin--unfocused Image--isBlock" data-size="normal" data-rawwidth="1065" data-rawheight="110" data-watermark="watermark" data-original-src="https://pic1.zhimg.com/v2-01071a5ded747bbca44e99691cb678dc_720w.jpg?source=d16d100b" /></div>
+</div>
+</div>
+</div>
+<div class="Editable-unstyled" data-block="true" data-editor="4egnr" data-offset-key="ca77q-0-0">
+<div class="public-DraftStyleDefault-block public-DraftStyleDefault-ltr" data-offset-key="ca77q-0-0"><span data-offset-key="ca77q-0-0">&nbsp;</span></div>
+</div>
+<div class="Editable-unstyled" data-block="true" data-editor="4egnr" data-offset-key="cnr8d-0-0">
+<div class="public-DraftStyleDefault-block public-DraftStyleDefault-ltr" data-offset-key="cnr8d-0-0"><span data-offset-key="cnr8d-0-0">这个方法还满足一个Completeness，直译为完整性。意思可以直观的看下面这个公式</span></div>
+</div>
+<div class="Image-captionContainer" data-size="normal">
+<div class="Image-resizerContainer css-ym3v7r" data-size="normal">
+<div>
+<div>
+<div class="ImageDelete-Container css-xi606m">
+<div class="ImageDelete-Wrapper css-1gomreu"><img src="https://pic1.zhimg.com/80/v2-bb838b456b45a57833824cdbed49a42f_720w.png?source=d16d100b" class="Image FocusPlugin--unfocused Image--isBlock" data-size="normal" data-rawwidth="784" data-rawheight="114" data-watermark="watermark" data-original-src="https://pic1.zhimg.com/v2-bb838b456b45a57833824cdbed49a42f_720w.jpg?source=d16d100b" />
+<div class="css-s0x03z">​</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="Editable-unstyled" data-block="true" data-editor="4egnr" data-offset-key="3p0mf-0-0">
+<div class="public-DraftStyleDefault-block public-DraftStyleDefault-ltr" data-offset-key="3p0mf-0-0"><span data-offset-key="3p0mf-0-0">&nbsp;</span></div>
+</div>
+<div class="Editable-unstyled" data-block="true" data-editor="4egnr" data-offset-key="9iupv-0-0">
+<div class="public-DraftStyleDefault-block public-DraftStyleDefault-ltr" data-offset-key="9iupv-0-0"><span data-offset-key="9iupv-0-0">如果神经网络可以被看作一个函数F，且这个函数处处可导，那么</span></div>
+</div>
+<div class="Editable-unstyled" data-block="true" data-editor="4egnr" data-offset-key="377mj-0-0">
+<div class="public-DraftStyleDefault-block public-DraftStyleDefault-ltr" data-offset-key="377mj-0-0"><span data-offset-key="377mj-0-0">意思就是说我们求出来的各个特征的归因值就等于输入x和输入x'的预测值之间的差值。这一性质在很多归因方法中都有涉及。</span></div>
+</div>
+<div class="public-DraftStyleDefault-block public-DraftStyleDefault-ltr" data-offset-key="ed6q4-0-0"><span style="font-size: 18px;"><strong><span data-offset-key="ed6q4-0-0">积分梯度法的唯一性</span></strong></span></div>
+<div class="Editable-unstyled" data-block="true" data-editor="4egnr" data-offset-key="bl5sq-0-0">
+<div class="public-DraftStyleDefault-block public-DraftStyleDefault-ltr" data-offset-key="bl5sq-0-0"><span data-offset-key="bl5sq-0-0">之前的研究工作主要通过以经验为主的分析技术去评估归因方法的好坏。比如：在目标检测算法中，选取前k个归因为最重要的像素，将他们的值进行改变，观察预测分数（比如一幅图像是苹果的概率，这个概率就是预测分数）的改变。若分数有很大变动，则说明这几个像素确实很重要。但这种方法是不自然的。另一种评估方法是考虑人工在目标周围画线，然后在线内的像素应该具有较高的重要值。</span></div>
+</div>
+<div class="Editable-unstyled" data-block="true" data-editor="4egnr" data-offset-key="2nc42-0-0">
+<div class="public-DraftStyleDefault-block public-DraftStyleDefault-ltr" data-offset-key="2nc42-0-0"><span data-offset-key="2nc42-0-0">接下来，作者阐述一种叫做Path Methods 的方法，并证明这个方法是唯一的一个满足前面提出的两个公理的方法。并且，作者论述了为什么采用的积分梯度的路径在不同的路径方法中是规范的。</span></div>
+</div>
+<div class="Editable-unstyled" data-block="true" data-editor="4egnr" data-offset-key="60jnv-0-0">
+<div class="public-DraftStyleDefault-block public-DraftStyleDefault-ltr" data-offset-key="60jnv-0-0"><span data-offset-key="60jnv-0-0">并且，作者多次提到了Shapley方法，这一方法与Integrated Gradients方法有着千丝万缕的联系，我对这一方法了解还不多，就先不做阐述。</span></div>
+</div>
+<div class="public-DraftStyleDefault-block public-DraftStyleDefault-ltr" data-offset-key="7fj70-0-0"><strong><span style="font-size: 18px;" data-offset-key="7fj70-0-0">应用积分梯度</span></strong></div>
+<div class="Editable-unstyled" data-block="true" data-editor="4egnr" data-offset-key="1cm2e-0-0">
+<div class="public-DraftStyleDefault-block public-DraftStyleDefault-ltr" data-offset-key="1cm2e-0-0"><span data-offset-key="1cm2e-0-0">选择一个合适的baseline，计算机视觉选取黑色图像，自然语言处理选取全0向量。</span></div>
+</div>
+<div class="Editable-unstyled" data-block="true" data-editor="4egnr" data-offset-key="32fqo-0-0">
+<div class="public-DraftStyleDefault-block public-DraftStyleDefault-ltr" data-offset-key="32fqo-0-0"><span data-offset-key="32fqo-0-0">积分梯度的计算</span></div>
+</div>
+<div class="Editable-unstyled" data-block="true" data-editor="4egnr" data-offset-key="asupl-0-0">
+<div class="public-DraftStyleDefault-block public-DraftStyleDefault-ltr" data-offset-key="asupl-0-0"><span data-offset-key="asupl-0-0">使用下面这个公式</span></div>
+</div>
+<div class="Editable-unstyled" data-block="true" data-editor="4egnr" data-offset-key="84d5s-0-0">
+<div class="public-DraftStyleDefault-block public-DraftStyleDefault-ltr" data-offset-key="84d5s-0-0"><span data-offset-key="84d5s-0-0">&nbsp;</span></div>
+</div>
+<div class="Image-captionContainer" data-size="normal">
+<div class="Image-resizerContainer css-ym3v7r" data-size="normal">
+<div>
+<div>
+<div class="ImageDelete-Container css-xi606m">
+<div class="ImageDelete-Wrapper css-1gomreu"><img src="https://picx.zhimg.com/80/v2-449150748eb981eb9be010e5b77634df_720w.png?source=d16d100b" class="Image FocusPlugin--unfocused Image--isBlock" data-size="normal" data-rawwidth="1355" data-rawheight="151" data-watermark="watermark" data-original-src="https://pica.zhimg.com/v2-449150748eb981eb9be010e5b77634df_720w.jpg?source=d16d100b" />
+<div class="css-s0x03z">​</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="Editable-unstyled" data-block="true" data-editor="4egnr" data-offset-key="1h36s-0-0">
+<div class="public-DraftStyleDefault-block public-DraftStyleDefault-ltr" data-offset-key="1h36s-0-0"><span data-offset-key="1h36s-0-0">&nbsp;</span></div>
+</div>
+<div class="Editable-unstyled" data-block="true" data-editor="4egnr" data-offset-key="cc7q8-0-0">
+<div class="public-DraftStyleDefault-block public-DraftStyleDefault-ltr" data-offset-key="cc7q8-0-0"><span data-offset-key="cc7q8-0-0">这个方法就是之前介绍的公式，只不过使用了积分的近似求法，将x到x'的路径分成m份，每一份都求一个梯度，然后求和平均，最后乘以输入和基线之间的差就是我们最后要求的值。作者这里指出m只需要取20-300左右即可。</span></div>
+</div>
+<div class="Editable-unstyled" data-block="true" data-editor="4egnr" data-offset-key="5lnmn-0-0">
+<div class="public-DraftStyleDefault-block public-DraftStyleDefault-ltr" data-offset-key="5lnmn-0-0"><span data-offset-key="5lnmn-0-0">后面就是作者在图像数据集，在文本数据集，以及在化学数据集上应用这一方法的内容。</span></div>
+</div>
+<div class="Editable-unstyled" data-block="true" data-editor="4egnr" data-offset-key="cbp92-0-0">
+<div class="public-DraftStyleDefault-block public-DraftStyleDefault-ltr" data-offset-key="cbp92-0-0"><span data-offset-key="cbp92-0-0">最后，推荐这个notebook，通过一个简单的手写数字识别样例简单明了的阐述了这篇论文所讲方法的使用过程。</span></div>
+</div>
+<div class="Editable-unstyled" data-block="true" data-editor="4egnr" data-offset-key="bj3g4-0-0">
+<div class="public-DraftStyleDefault-block public-DraftStyleDefault-ltr" data-offset-key="bj3g4-0-0"><span data-offset-key="bj3g4-0-0">https://github.com/JoHof/IntegratedGradientsTutorial/blob/master/ig_example_onmnist.ipynb</span></div>
+<div class="public-DraftStyleDefault-block public-DraftStyleDefault-ltr" data-offset-key="bj3g4-0-0"><span data-offset-key="bj3g4-0-0">如果对IG方法的实现仍有一些疑问，可以去看captum库是如何实现IG方法的。</span></div>
+<div class="public-DraftStyleDefault-block public-DraftStyleDefault-ltr" data-offset-key="bj3g4-0-0"><span data-offset-key="bj3g4-0-0">在我的这篇博客中对captum中的源码有所说明</span></div>
+<div class="public-DraftStyleDefault-block public-DraftStyleDefault-ltr" data-offset-key="bj3g4-0-0"><span data-offset-key="bj3g4-0-0">https://www.cnblogs.com/lxah/p/16749032.html</span></div>
+</div>
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
@@ -334,210 +427,112 @@
 	</div>
 
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=https://wangqianao.github.io/2022/12/20/Axiomatic%20Attribution%20for%20Deep%20Networks%E8%A7%A3%E8%AF%BB%EF%BC%88Integrated%20Gradients%E6%96%B9%E6%B3%95%EF%BC%89-integratedgradientspaper/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/12/20/%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BBIntegratedGradients---%E5%9F%BA%E4%BA%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%8F%AF%E8%A7%A3%E9%87%8A%E6%80%A7%E6%A1%86%E6%9E%B6Captum-integratedgradientscodereading/" class="archive-article-date">
-  	<time datetime="2022-12-20T04:45:20.328Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-12-20</time>
-</a>
+<nav id="article-nav">
+  
+    <a href="/2022/12/20/LIME%E6%A8%A1%E5%9E%8B---Why%20Should%20I%20Trust%20You%20Explaining%20the%20Predictions%20of%20Any%20Classifier%20%E9%80%9F%E8%AF%BB-limemodel/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          LIME模型---&#34;Why Should I Trust You?&#34;Explaining the Predictions of Any Classifier 速读
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2022/12/20/%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BBIntegratedGradients---%E5%9F%BA%E4%BA%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%8F%AF%E8%A7%A3%E9%87%8A%E6%80%A7%E6%A1%86%E6%9E%B6Captum-integratedgradientscodereading/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">源码阅读IntegratedGradients---基于深度学习可解释性框架Captum</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/12/20/%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BBIntegratedGradients---%E5%9F%BA%E4%BA%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%8F%AF%E8%A7%A3%E9%87%8A%E6%80%A7%E6%A1%86%E6%9E%B6Captum-integratedgradientscodereading/">源码阅读IntegratedGradients---基于深度学习可解释性框架Captum</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/可解释性//" class="article-tag-list-link color5">可解释性</a>
-        		</li>
-      		
-		</ul>
-	</div>
+        
+        
+    </div>
+</aside>
 
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/12/02/%E8%8A%82%E6%B5%81%E2%80%94%E2%80%94%E4%BB%A5%E8%B4%AA%E5%90%83%E8%9B%87%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1%E4%B8%BA%E4%BE%8B-%E8%B4%AA%E5%90%83%E8%9B%87%E5%BD%93%E4%B8%AD%E7%9A%84%E8%8A%82%E6%B5%81%E6%80%9D%E6%83%B3/" class="archive-article-date">
-  	<time datetime="2022-12-02T08:24:54.466Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-12-02</time>
-</a>
-        </div>
-    	 
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/12/02/%E8%8A%82%E6%B5%81%E2%80%94%E2%80%94%E4%BB%A5%E8%B4%AA%E5%90%83%E8%9B%87%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1%E4%B8%BA%E4%BE%8B-%E8%B4%AA%E5%90%83%E8%9B%87%E5%BD%93%E4%B8%AD%E7%9A%84%E8%8A%82%E6%B5%81%E6%80%9D%E6%83%B3/">节流——以贪吃蛇游戏设计为例</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/前端//" class="article-tag-list-link color3">前端</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/12/01/javascript%E6%89%8B%E6%8A%8A%E6%89%8B%E5%AE%9E%E7%8E%B0%E7%AE%80%E6%98%93%E8%B4%AA%E5%90%83%E8%9B%87%EF%BC%88%E4%BA%94%EF%BC%89%E6%B6%A6%E8%89%B2%E3%80%81%E5%88%A4%E8%BE%93%E3%80%81%E6%8E%A7%E9%95%BF%20%E2%80%94%E2%80%94%E5%A4%A9%E4%B8%8B%E5%A4%A7%E4%BA%8B%EF%BC%8C%E5%BF%85%E4%BD%9C%E4%BA%8E%E7%BB%86-snake05/" class="archive-article-date">
-  	<time datetime="2022-12-01T06:26:02.226Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-12-01</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/12/01/javascript%E6%89%8B%E6%8A%8A%E6%89%8B%E5%AE%9E%E7%8E%B0%E7%AE%80%E6%98%93%E8%B4%AA%E5%90%83%E8%9B%87%EF%BC%88%E4%BA%94%EF%BC%89%E6%B6%A6%E8%89%B2%E3%80%81%E5%88%A4%E8%BE%93%E3%80%81%E6%8E%A7%E9%95%BF%20%E2%80%94%E2%80%94%E5%A4%A9%E4%B8%8B%E5%A4%A7%E4%BA%8B%EF%BC%8C%E5%BF%85%E4%BD%9C%E4%BA%8E%E7%BB%86-snake05/">javascript手把手实现简易贪吃蛇（五）润色、判输、控长 ——天下大事，必作于细</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/前端//" class="article-tag-list-link color3">前端</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/12/01/javascript%E6%89%8B%E6%8A%8A%E6%89%8B%E5%AE%9E%E7%8E%B0%E7%AE%80%E6%98%93%E8%B4%AA%E5%90%83%E8%9B%87%EF%BC%88%E5%9B%9B%EF%BC%89%E8%9B%87%E7%9A%84%E7%A7%BB%E5%8A%A8%20%E2%80%94%E2%80%94%20%E6%AD%A4%E8%9B%87%E8%8B%A5%E9%81%82%E5%8D%83%E9%87%8C%E5%BF%97%EF%BC%8C%E8%BF%BD%E9%A3%8E%E7%8A%B9%E5%8F%AF%E5%88%B0%E5%A4%A9%E6%B6%AF-snake04/" class="archive-article-date">
-  	<time datetime="2022-12-01T02:45:30.303Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-12-01</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/12/01/javascript%E6%89%8B%E6%8A%8A%E6%89%8B%E5%AE%9E%E7%8E%B0%E7%AE%80%E6%98%93%E8%B4%AA%E5%90%83%E8%9B%87%EF%BC%88%E5%9B%9B%EF%BC%89%E8%9B%87%E7%9A%84%E7%A7%BB%E5%8A%A8%20%E2%80%94%E2%80%94%20%E6%AD%A4%E8%9B%87%E8%8B%A5%E9%81%82%E5%8D%83%E9%87%8C%E5%BF%97%EF%BC%8C%E8%BF%BD%E9%A3%8E%E7%8A%B9%E5%8F%AF%E5%88%B0%E5%A4%A9%E6%B6%AF-snake04/">javascript手把手实现简易贪吃蛇（四）蛇的移动 —— 此蛇若遂千里志，追风犹可到天涯</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/前端//" class="article-tag-list-link color3">前端</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/11/30/javascript%E6%89%8B%E6%8A%8A%E6%89%8B%E5%AE%9E%E7%8E%B0%E7%AE%80%E6%98%93%E8%B4%AA%E5%90%83%E8%9B%87%EF%BC%88%E4%B8%89%EF%BC%89%E8%9B%87%E7%9A%84%E7%BB%98%E5%88%B6%E2%80%94%E2%80%94%E5%A4%95%E9%81%BF%E9%95%BF%E8%9B%87-snake03/" class="archive-article-date">
-  	<time datetime="2022-11-30T11:18:49.526Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-11-30</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/11/30/javascript%E6%89%8B%E6%8A%8A%E6%89%8B%E5%AE%9E%E7%8E%B0%E7%AE%80%E6%98%93%E8%B4%AA%E5%90%83%E8%9B%87%EF%BC%88%E4%B8%89%EF%BC%89%E8%9B%87%E7%9A%84%E7%BB%98%E5%88%B6%E2%80%94%E2%80%94%E5%A4%95%E9%81%BF%E9%95%BF%E8%9B%87-snake03/">javascript手把手实现简易贪吃蛇（三）蛇的绘制——夕避长蛇</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/前端//" class="article-tag-list-link color3">前端</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/archives/page/2/">2</a><a class="extend next" rel="next" href="/archives/page/2/">Next &amp;raquo;</a>
-    </nav>
   
 
 
@@ -561,8 +556,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
